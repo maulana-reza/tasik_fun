@@ -1,0 +1,43 @@
+/*
+Powered by:
+- https://github.com/tonystar/bootstrap-float-label
+- https://github.com/tonystar/float-label-css
+- https://v4-alpha.getbootstrap.com/
+*/
+html,body{
+  height: 100%;
+}
+@media screen and (max-width: 768px){
+  .ml-sm-3{
+    margin: 30px !important;
+    width: 80%;
+  }
+}
+.bg-top-blue{
+
+  background-position: top left;
+  background-size: 80% auto;
+  background-repeat: no-repeat;
+
+}
+
+.bg-bottom-blue{
+  
+  background-size: 80% auto;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: bottom right;
+
+}
+.bg-cyan{
+background-color: #00ffe5;
+}
+.text-blue{
+	color: #00bedc;
+}
+.bg-login-card{
+	background-color: #00bedc;
+}
+.b-r-100{
+	border-radius: 100px !important;
+}
