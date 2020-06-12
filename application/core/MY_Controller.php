@@ -63,13 +63,13 @@ class MY_Controller extends CI_Controller
     }
     /**
     * @param array $array
-    example : 
-    $this->set_tool(['btn_bottom_menu'=> uri_string()]);
-    $array = [
-        'btn_back' => [URI],
-        'btn_bottm_menu' => [URI]
-    ];
-    explain : to except site from button back and bottom menu
+        example : 
+        $this->set_tool(['btn_bottom_menu'=> uri_string()]);
+        $array = [
+            'btn_back' => [URI],
+            'btn_bottm_menu' => [URI]
+        ];
+        explain : to except site from button back and bottom menu
     */
     public function set_tool($array = array())
     {
@@ -99,7 +99,6 @@ class MY_Controller extends CI_Controller
      */
     public function render($view_name=FALSE, $template=FALSE, $return=FALSE) {
         $this->set_tool();
-
 
         if (is_null($template)) return $this->load->view($view_name, $this->getDatas(), $return);
         if (!$template) $template = self::$template_default;

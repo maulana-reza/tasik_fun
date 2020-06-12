@@ -191,7 +191,7 @@ class Dokumentasi extends ADMIN_Controller {
 			
 			$temp 		= '
 			<div class="card p-3 waves-effect text-center shadow ml-0 mb-3 position-relative overflow-hidden" style="height: 15em;">
-			<img src="'.base_url() .'/assets/uploads/bmw.jpg" alt="gambar-dokumentasi" class="position-absolute h-100" style="left:0; right:0;top:0;bottom:0;">
+			<img src="'.base_url() .'/assets/uploads/'.$value['image_name'].'" alt="gambar-dokumentasi" class="position-absolute h-100" style="left:0; right:0;top:0;bottom:0;">
 			<div class="position-relative cover-card h-100 w-100 text-white bg-dark text-left p-2" style="left:0; right:0;top:0;bottom:0;">
 					<div class="label">
 					'.$value['title'].'

@@ -15,6 +15,9 @@
 	.card-text{
 		font-size: small !important;
 	}
+	.card:hover {
+		transform: scale(1.02);
+	}
 	.card:hover > .fa-trash{
 		display: block !important;
 	}
@@ -28,7 +31,7 @@
 	.card .cover-card{
 		box-shadow: 10 10 0 0 black;
 		opacity: 0.7;
-		margin-top: 100%;
+		margin-top: 50%;
 	}
 	.card:hover > .cover-card{
 		margin-top: 50%;

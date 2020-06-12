@@ -21,7 +21,7 @@ class ADMIN_Controller extends AUTH_Controller {
     }
     public function menu_active()
     {
-        $uri_string = uri_string();
+        $uri_string = $this->uri->uri_string();
         if (strpos($uri_string, '/' )) {
             $menu=explode('/',$uri_string);
             $menu=$menu[0];
