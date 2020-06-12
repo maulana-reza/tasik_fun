@@ -85,7 +85,6 @@ class AUTH_Controller extends MY_Controller
 	 */
 	public function login()
 	{
-		$this->data['title'] = $this->lang->line('login_heading');
 
 		// validate form input
 		$this->form_validation->set_rules('identity', str_replace(':', '', $this->lang->line('login_identity_label')), 'required');
@@ -96,13 +95,10 @@ class AUTH_Controller extends MY_Controller
 			// check to see if the user is logging in
 			// check for "remember me"
 			$remember = (bool)$this->input->post('remember');
-			$hasil = $this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember);
-
 			if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember))
 			{
 				//if the login is successful
 				//redirect them back to the home page
-				// $this->session->set_flashdata('message', $this->ion_auth->messages());
 				$array[] = [
 					'text' => $this->ion_auth->messages(),
 					'type' => 'info'
@@ -112,20 +108,19 @@ class AUTH_Controller extends MY_Controller
 
 				// $cookie = ;
 				// var_dump($cookie);
-				$cookie = array(
-				'name'   => 'token',
-				'value'  => $this->generate()['token'],
-				'expire' => (3600*24*360),
-				);
-				$this->input->set_cookie($cookie);
-				$token = $this->input->cookie('token');
-				$_COOKIE['token'] = $token;
-				$this->prepare_token($token);
+				// $cookie = array(
+				// 'name'   => 'token',
+				// 'value'  => $this->generate()['token'],
+				// 'expire' => (3600*24*360),
+				// );
+				// $this->input->set_cookie($cookie);
+				// $token = $this->input->cookie('token');
+				// $_COOKIE['token'] = $token;
+				// $this->prepare_token($token);
 				
 				if ($this->ion_auth->is_admin()) {
 					redirect('admin');
 				}
-				redirect('test', 'refresh');
 			}
 			else
 			{
@@ -170,7 +165,6 @@ class AUTH_Controller extends MY_Controller
 				'type' => 'password',
 			];
 			$this->addMultipleData($this->data);
-			// $this->render('login','login');
 		}
 	}
 
@@ -707,10 +701,10 @@ class AUTH_Controller extends MY_Controller
 			if ($this->form_validation->run() === TRUE)
 			{
 				$data = [
-					'first_name' => $this->input->post('first_name'),
-					'last_name' => $this->input->post('last_name'),
-					'company' => $this->input->post('company'),
-					'phone' => $this->input->post('phone'),
+					'first_name' 	=> $this->input->post('first_name'),
+					'last_name' 	=> $this->input->post('last_name'),
+					'company' 		=> $this->input->post('company'),
+					'phone' 		=> $this->input->post('phone'),
 				];
 
 				// update the password if it was posted

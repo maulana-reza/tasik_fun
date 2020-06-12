@@ -8,12 +8,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="<?= base_url();?>assets/templates/puskeswan-admin/tool/bootstrap.min.css" >
+    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/templates/car-sell/custom/mdb/css/mdb.min.css">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="<?= base_url();?>assets/templates/puskeswan-admin/tool/style.css">
     <link rel="stylesheet" href="<?= base_url();?>assets/templates/puskeswan-admin/tool/chart.css">
     <!-- Font Awesome JS -->
+
+    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/templates/car-sell/custom/font-awesome/css/all.min.css">
+    <script src="<?php echo base_url(); ?>/assets/templates/car-sell/custom/font-awesome/js/all.min.js"></script>
+    
     <script defer src="<?= base_url();?>assets/templates/puskeswan-admin/tool/solid.js" ></script>
-    <script defer src="<?= base_url();?>assets/templates/puskeswan-admin/tool/fontawesome.js" ></script>
+    <script src="<?= base_url();?>assets/templates/puskeswan-admin/tool/jquery-3.4.1.min.js" ></script>
+
     <title>
     <?php @$this->load->view('templates/puskeswan-admin/title');?>
     </title>
@@ -26,9 +32,6 @@ foreach ($modals as $key => $modal) {
 }
 ?>
 <body>
-    <?= form_open('');?>
-    <?= form_close();?>
-
     <div class="wrapper">
         <!-- Sidebar Holder -->
         <nav id="sidebar" class="shadow bg-bottom-blue" style=" background-image: url('<?= base_url('assets/templates/puskeswan-admin/img/bg-bottom-admin.svg'); ?>');" >
@@ -47,18 +50,12 @@ foreach ($modals as $key => $modal) {
             </div>
 
             <ul class="list-unstyled components">
-                <li class="<?= @$menu['dashboard']?>">
-                    <a class="menu " href="<?= site_url('admin/dashboard') ?>" data-name="puskeswan" >Dashboard</a>
+                <?php $menus = get_all_menu(); ?>
+                <?php foreach ($menus as $key => $item): ?>    
+                <li class="<?= @$menu[$item['name']]?>">
+                    <a class="menu " href="<?= $item['url'] ?>" data-name="<?= $item['name'] ?>" ><?= ucfirst($item['name']);?></a>
                 </li>
-                <li class="<?= @$menu['article']?>">
-                    <a class="menu " href="<?= site_url('admin/article') ?>" data-name="puskeswan" >Dokumentasi</a>
-                </li>
-                <li class="<?= @$menu['about']?>">
-                    <a class="menu " href="<?= site_url('admin/about') ?>" data-name="puskeswan" >Tentang kami</a>
-                </li>
-                <li class="<?= @$menu['privacy_policy']?>">
-                    <a class="menu " href="<?= site_url('admin/privacy_policy') ?>" data-name="privacy_policy">Kebijakan</a>
-                </li>
+                <?php endforeach ?>
             </ul>
 
         </nav>
@@ -68,7 +65,7 @@ foreach ($modals as $key => $modal) {
             <div class="bg-content">    
             </div>
 
-            <nav class="navbar navbar-expand-lg navbar-inverse navbar-light bg-light m-0 p-absolute d-lg-none d-md-none fixed-top">
+            <nav class="navbar navbar-expand-lg navbar-inverse navbar-light bg-light m-0 position-fixed d-lg-none d-md-none fixed-top">
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse2" class="navbar-btn2 ml-3" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,26 +79,11 @@ foreach ($modals as $key => $modal) {
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent" >
                         <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item ml-3 mt-2 mb-2 <?= @$menu['puskeswan']?>">
-                                <a class="nav-link menu" href="<?= site_url('puskeswan') ?>" data-name="puskeswan">Puskeswan</a>
-                            </li>
-                            <li class="nav-item ml-3 mt-2 mb-2 <?= @$menu['sipoteko']?>">
-                                <a class="nav-link menu" href="<?= site_url('sipoteko') ?>" data-name="sipoteko">Sipoteko</a>
-                            </li>
-                            <li class="nav-item ml-3 mt-2 mb-2 <?= @$menu['sipolahnak']?>">
-                                <a class="nav-link menu" href="<?= site_url('sipolahnak') ?>" data-name="sipolahnak">Sipolahnak</a>
-                            </li>
-                            <li class="nav-item ml-3 mt-2 mb-2 <?= @$menu['super_admin']?>">
-                                <a class="nav-link menu" href="<?= site_url('super_admin') ?>" data-name="super_admin">Super Admin</a>
-                            </li>
-
-                            <li class="nav-item ml-3 mt-2 mb-2 <?= @$menu['data_reference']?>">
-                                <a class="nav-link menu" href="<?= site_url('data_reference') ?>" data-name="data_reference">Data Referensi</a>
-                            </li>
-
-                            <li class="nav-item ml-3 mt-2 mb-2 <?= @$menu['privacy_policy']?>">
-                                <a class="nav-link menu" href="<?= site_url('privacy_policy') ?>" data-name="privacy_policy">Kebijakan Pribadi</a>
-                            </li>
+                            <?php foreach ($menus as $key => $item): ?>    
+                                <li class="nav-item ml-3 mt-2 mb-2 <?= @$menu[$item['name']]?>">
+                                    <a class="nav-link menu" href="<?= $item['url'] ?>" data-name="<?= $item['name'] ?>"><?= ucfirst($item['name']);?></a>
+                                </li>
+                            <?php endforeach ?>
                         </ul>
                     </div>
                 </div>
@@ -109,17 +91,15 @@ foreach ($modals as $key => $modal) {
 
             <a href="<?= site_url('auth/logout')?>" >
             <button class="navbar-btn mr-3 float-right text-white"  style="font-size: 20px;"><i class="fa fa-power-off fa-lg"></i></button></a>
+
             <?php @$this->load->view('templates/puskeswan-admin/page-title');?>
             <div class="col-md-12 heading-content-sub-title">
              <?= @$title_card ? "Data ".$title_card: ""; ?>
             </div>
-            <?php
-            $messages=$this->session->flashdata('messages'); 
-            if (is_array(@$messages)): ?>
-                <?php foreach ($messages as $key => $message): ?>
-                   <?php echo $message ;?> 
-                <?php endforeach ?>
-            <?php endif ?>
+
+    <?php if (!is_null(show_alert())): ?>
+        <?php echo show_alert(); ?>
+    <?php endif ?>
 			<?= @$content ?>
 
         </div>
@@ -129,7 +109,6 @@ foreach ($modals as $key => $modal) {
 </html>
  
 <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="<?= base_url();?>assets/templates/puskeswan-admin/tool/jquery-3.4.1.min.js" ></script>
     <!-- Popper.JS -->
     <script type="text/javascript">
         $(document).ready(function () {
@@ -149,6 +128,8 @@ foreach ($modals as $key => $modal) {
             })
         });
     </script>
+    
+<script src="<?php echo base_url(); ?>/assets/templates/car-sell/custom/mdb/js/mdb.min.js"></script>
     <script src="<?= base_url();?>assets/templates/puskeswan-admin/tool/popper.min.js" ></script>
     <!-- <script src="<?= base_url();?>assets/templates/puskeswan-admin/tool/chart.js" ></script> -->
     

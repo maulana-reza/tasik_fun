@@ -24,7 +24,7 @@
       <h1 class="h3 font-weight-bold"><?= getenv("APP_NAME");?></h1>
       </div>
 
-    <?php if (!is_null(show_alert()) && !strpos(uri_string(), "Incorrect Login")): ?>
+    <?php if (!is_null(show_alert())): ?>
     <?php echo show_alert(); ?>
     <?php endif ?>
       <?= @$content ?>

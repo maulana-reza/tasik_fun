@@ -216,8 +216,6 @@ class MY_Controller extends CI_Controller
     {
         $this->datas = $datas;
     }
-
-
     /**
      * @param mixed $key
      * @param mixed $data
@@ -281,34 +279,35 @@ class MY_Controller extends CI_Controller
     /**
      * for upload image with car_id
      * 
+     * @param string file
+     * @param string index
      * @param string name
-     * @param string id_car
      * @return array : car_id,name
      */
-    public function upload_files($name,$id = false){
+    public function upload_files($files,$index_,$name,$document_id = false){
  
       $data = array();
 
-      // Count total files
-      $countfiles = count(@$_FILES[$name]['name']);
- 
       // Looping all files 
-
-      for($i=0;$i< @$countfiles ;$i++){
-        if(!empty(@$_FILES[$name]['name'][$i])){
+      if (@!$index_) {
+        return false;
+      }
+      foreach ($index_ as $i => $value) {
+        $index = $i - 1;
+        if(!empty(@$files[$name]['name'][$index])){
  
           // Define new $_FILES array - $_FILES['file']
-          $_FILES['file']['name'] = $_FILES[$name]['name'][$i];
-          $_FILES['file']['type'] = $_FILES[$name]['type'][$i];
-          $_FILES['file']['tmp_name'] = $_FILES[$name]['tmp_name'][$i];
-          $_FILES['file']['error'] = $_FILES[$name]['error'][$i];
-          $_FILES['file']['size'] = $_FILES[$name]['size'][$i];
+          $_FILES['file']['name']       = $files[$name]['name'][$index];
+          $_FILES['file']['type']       = $files[$name]['type'][$index];
+          $_FILES['file']['tmp_name']   = $files[$name]['tmp_name'][$index];
+          $_FILES['file']['error']      = $files[$name]['error'][$index];
+          $_FILES['file']['size']       = $files[$name]['size'][$index];
 
           // Set preference
-          $config['upload_path'] = getenv('IMG_PATH'); 
-          $config['allowed_types'] = 'jpg|jpeg|png';
-          $config['max_size'] = '2000';
-          $config['encrypt_name']   = TRUE; // max_size in kb
+          $config['upload_path']        = getenv('IMG_PATH'); 
+          $config['allowed_types']      = 'jpg|jpeg|png';
+          $config['max_size']           = '2000';
+          $config['encrypt_name']       = TRUE; // max_size in kb
           //Load upload library
           $this->load->library('upload',$config); 
  
@@ -319,19 +318,20 @@ class MY_Controller extends CI_Controller
             $filename = $uploadData['file_name'];
 
             // Initialize array
-
             $data[] = [
-                'car_id'    =>@$id,
-                'name'  =>$filename,
+                'description'           => $index_[$index+1],
+                'documentation_id'      => @$document_id,
+                'name'                  => $filename,
             ];
+            
           }else{
 
             $array[] = [
-                'text' =>   $this->upload->display_errors(),
-                'type' => 'success' 
+                'text' => $this->upload->display_errors(),
+                'type' => 'danger' 
             ];
             alert($array);
-            redirect(uri_string(),"REFRESHP");
+            redirect(uri_string(),"REFRESH");
           }
         }
       }

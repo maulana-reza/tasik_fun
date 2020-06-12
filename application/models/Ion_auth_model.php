@@ -2399,7 +2399,7 @@ class Ion_auth_model extends CI_Model
 			$_output = [];
 			foreach ($this->messages as $message)
 			{
-				$messageLang = $this->lang->line($message) ? $this->lang->line($message) : '##' . $message . '##';
+				$messageLang = lang_line($message,'ion_auth') ? lang_line($message,'ion_auth') : '##' . $message . '##';
 				$_output[] = $this->message_start_delimiter . $messageLang . $this->message_end_delimiter;
 			}
 			return $_output;
@@ -2455,7 +2455,7 @@ class Ion_auth_model extends CI_Model
 		$_output = '';
 		foreach ($this->errors as $error)
 		{
-			$errorLang = $this->lang->line($error) ? $this->lang->line($error) : '##' . $error . '##';
+			$errorLang = lang_line($error,'ion_auth') ? lang_line($error,'ion_auth') : '##' . $error . '##';
 			$_output .= $this->error_start_delimiter . $errorLang . $this->error_end_delimiter;
 		}
 
@@ -2479,7 +2479,7 @@ class Ion_auth_model extends CI_Model
 			$_output = [];
 			foreach ($this->errors as $error)
 			{
-				$errorLang = $this->lang->line($error) ? $this->lang->line($error) : '##' . $error . '##';
+				$errorLang = lang_line($error,'ion_auth') ? lang_line($error,'ion_auth') : '##' . $error . '##';
 				$_output[] = $this->error_start_delimiter . $errorLang . $this->error_end_delimiter;
 			}
 			return $_output;

@@ -1,9 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Auth extends MEMBER_Controller {
-
-	 
+class Auth extends AUTH_Controller {
 
 	public function __construct()
 	{
@@ -12,10 +10,7 @@ class Auth extends MEMBER_Controller {
 		$this->addData('prev_uri',site_url('profile'));
 		// load lang
 		$this->lang->load('alert');
-		// load model
 		
-		// if not complete information
-		// $this->get_complete_information();
 
 		$this->load->helper('address');
 

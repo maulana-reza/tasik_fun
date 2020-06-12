@@ -364,3 +364,15 @@ function atr_file($name = false)
 
 
  }
+
+/**
+ * convert date
+ * 
+ * @param string
+ * @param string
+ * @return string
+ */
+ function convert_date($date)
+ {
+ 	return date('d / F / Y - H : i', strtotime($date));
+ }

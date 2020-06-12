@@ -16,7 +16,7 @@ function alert($array)
 
 		foreach ($array as $key => $value) {
 			$alert .= '
-			<div class="mb-1 border-0 border-bottom rounded-0 pl-3 pt-4 pr-3 p-2 card-text alert alert-'.@$array[$key]['type'].' alert-dismissible fade show shadow" role="alert" data-dismiss="alert" aria-label="Close">
+			<div class="mb-3 border-0 border-bottom rounded pl-3 pt-4 pr-3 p-2 card-text alert alert-'.@$array[$key]['type'].' alert-dismissible fade show shadow" role="alert" data-dismiss="alert" aria-label="Close">
 			'.@$array[$key]['text'].'
 			</div>';
 
