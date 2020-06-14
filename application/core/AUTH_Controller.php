@@ -6,13 +6,6 @@
  * @property CI_Form_validation      $form_validation The form validation library
  */
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use \Firebase\JWT\JWT;
-
-require 'vendor/phpmailer/phpmailer/src/Exception.php';
-require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require 'vendor/phpmailer/phpmailer/src/SMTP.php';
 require_once APPPATH . '/libraries/REST_Controller.php';
 require_once APPPATH . '/libraries/JWT.php';
 require_once APPPATH . '/libraries/BeforeValidException.php';
@@ -358,7 +351,6 @@ class AUTH_Controller extends MY_Controller
 
 			if ($forgotten)
 			{
-				$this->sent($forgotten);
 
 			$array[] = [
 				'text' => $this->ion_auth->messages(),
@@ -382,48 +374,6 @@ class AUTH_Controller extends MY_Controller
 			}
 		}
 	}
-	    function sent($data) 
-                    {
- 
-                        // PHPMailer object
-                    $response = false;
-                    $mail = new PHPMailer();
-                   
-            
-                    // SMTP configuration
-                    $mail->isSMTP();
-                    $mail->Host     = getenv('EMAIL_HOST'); //sesuaikan sesuai nama domain hosting/server yang digunakan
-                    $mail->SMTPAuth = true;
-                    $mail->Username = getenv('EMAIL_USER'); // user email
-                    $mail->Password = getenv('EMAIL_PASSWORD'); // password email
-                    $mail->SMTPSecure = 'ssl';
-                    $mail->Port     = (int) getenv('EMAIL_PORT');
-            
-                    $mail->setFrom(getenv('EMAIL_USER'), $_SESSION['app_name']); // user email
-                    $mail->addReplyTo(getenv('EMAIL_USER'), ''); //user email
-            
-                    // Add a recipient
-                    $mail->addAddress($data['email']); //email tujuan pengiriman email
-            
-                    // Email subject
-                    $mail->Subject = 'Reset Password'; //subforgottenject email
-            
-                    // Set email format to HTML
-                    $mail->isHTML(true);
-            
-                    // Email body content
-                    $mailContent = $this->load->view('profile/email', $data, TRUE);
-                    $mail->Body = $mailContent;
-            
-                    // Send email
-                    if(!$mail->send()){
-						$array[] = [
-						'text' =>'Mailer Error: ' . $mail->ErrorInfo,
-						'type' => 'info' 
-						];
-						alert($array);
-                    }
-                }
 
 	/**
 	 * Reset password - final step for forgotten password
