@@ -187,7 +187,7 @@ class Dokumentasi extends ADMIN_Controller {
 	}
 	public function is_your_responsibility()
 	{
-		$data = $this->documentation_model->get_documentation_image();
+		$data = $this->documentation_model->get();
 		if ($data[0]) {
 			return true;
 		}
