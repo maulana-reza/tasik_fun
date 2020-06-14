@@ -7,7 +7,10 @@
 		<label for="company_name">Nama Perusahaan</label>
 		<?= form_input($company_name); ?>
 	</div>
-
+	<div class="form-group">
+		<label for="description">Deskripsi</label>
+		<?= form_textarea($description);?>
+	</div>
 	<div class="form-group">
 		<label for="email">Email</label>
 		<?= form_input($email); ?>
@@ -32,7 +35,6 @@
 	<label for="">Sosial media</label>
 	<div class="">
 		<?= $sosmed ;?>
-
 	</div>
 </div>
 	<div class="text-right">
@@ -48,7 +50,14 @@
 </style>
 <script type="text/javascript">
 ClassicEditor
-    .create( document.querySelector('.address-text') )
+    .create( document.querySelector('[name="description"]') )
+    .then( editor => {;
+    } )
+    .catch( error => {
+        console.error( error );
+    } );
+    ClassicEditor
+    .create( document.querySelector('[name="address"]') )
     .then( editor => {;
     } )
     .catch( error => {
