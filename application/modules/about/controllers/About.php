@@ -10,7 +10,6 @@ class About extends MY_Controller {
 	}
 	public function index()
 	{
-
 		$this->addData('remove_banner',true);
 		$this->addData('page_title','Tentang Kami');
 		$this->render('about','eatery');

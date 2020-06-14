@@ -101,7 +101,9 @@ class Home extends MY_Controller {
 	            </div>
 	            </a>';
 			}else{
-				$temp[]     = '            <div class="sched d-block d-lg-flex">
+				$temp[]     = '
+				<a href="'.$url.'" title="">
+				<div class="sched d-block d-lg-flex">
               <div class="bg-image" style="background-image: url('.$img.');"></div>
               <div class="text">
                 <h3>'.$title.'</h3>
@@ -114,7 +116,8 @@ class Home extends MY_Controller {
                 
               </div>
               
-            </div>';
+            </div>
+            </a>';
 			}
 			if ($increment > 1) {
 				$wrapper 	= '

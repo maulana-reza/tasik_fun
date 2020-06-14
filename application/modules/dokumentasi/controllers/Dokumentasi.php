@@ -131,15 +131,46 @@ class Dokumentasi extends MY_Controller {
 	{
 		$this->db->where('documentation.id_documentation', $documentation_id);
 		$documentation = $this->documentation_model->get()[0];
-		if (@!$documentation[0]) {
+		if (@!$documentation) {
+			redirect('not_found','refresh');
 
 		}
-		$this->addData("remove_banner",true);
+		$this->prepare_view($documentation_id);
 		$this->addData('page_title',$documentation['title']);
 		$this->addData('page_sub_title',convert_date($documentation['date_create'],'d / F / Y -  H : i'));
 		$this->addMultipleData($documentation);
 		$this->render('view','eatery');
 
+	}
+	public function prepare_view($documentation_id = 0)
+	{
+		$documentation = $this->documentation_model->get_documentation_image_by_documentation_id($documentation_id);
+		$data['documentation'] = $this->builder_image($documentation);
+		$this->addMultipleData($data);
+	}
+	public function builder_image($image)
+	{
+		foreach ($image as $key => $value) {
+			$title 		= $key < 1 ? $value['title'] : "";
+			$sub_title 	= $key < 1 ? convert_date($value['date_create'],'d / F / Y - H : i') : "";
+			$img 		= base_url(getenv('IMG_PATH')).'/'.$value['image_name'];
+			$result[] 	= '
+					      <div class="slider-item" style="background-image: url('.$img.');">
+					        <div class="container">
+					          <div class="row slider-text align-items-center justify-content-center">
+					            <div class="col-md-8 text-center col-sm-12 element-animate">
+					              <h1>'.$title.'</h1>
+					              <p>'.$sub_title.'</p>
+					            </div>
+					          </div>
+					        </div>
+					      </div>';
+		}
+		$data = '
+					    <section class="home-slider-loop-false  inner-page owl-carousel">
+					    %s </section>
+		';
+		return $result ? sprintf($data,implode("", $result))  : false;
 	}
 
 }

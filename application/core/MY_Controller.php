@@ -99,9 +99,7 @@ class MY_Controller extends CI_Controller
      */
     public function render($view_name=FALSE, $template=FALSE, $return=FALSE) {
         $this->set_tool();
-        if (strpos('home', uri_string()) || strpos('about', uri_string())) {
-            $this->get_about();
-        }
+        $this->get_about();
         if (is_null($template)) return $this->load->view($view_name, $this->getDatas(), $return);
         if (!$template) $template = self::$template_default;
         if (strpos($template, '/') !== false) {
