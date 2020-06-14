@@ -29,6 +29,7 @@
 
     <script src="<?= base_url();?>node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js" ></script>
     <script src="<?= base_url();?>node_modules/jquery.filer/js/jquery.filer.js" ></script>
+
 <style>
 	.jFiler-input-dragDrop{
 		width: 100%;

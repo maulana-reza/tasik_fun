@@ -21,4 +21,25 @@ function get_all_menu()
 	];
 	return $menu;
 }
+function menu_client()
+{
+	$menu = [
+		[
+			'url'	=> site_url('home'),
+			'name' 	=>'HOME',
+		],
+
+		[
+			'url'	=> site_url('dokumentasi'),
+			'name' 	=>'KEGIATAN',
+		],
+		[
+			'url'	=> site_url('about'),
+			'name' 	=>'TENTANG KAMI',
+		],
+	];
+	return $menu;
+
+
+}
 ?>

@@ -185,7 +185,7 @@ function report_list()
 function lang_line($line,$file)
 {
 	$ci =& get_instance();
-	$lang = $ci->session->userdata('language');
+	$lang = $ci->config->item('language');
 	$ci->lang->load($file,$lang);
 	$data = $ci->lang->line($line);
 	return $data;

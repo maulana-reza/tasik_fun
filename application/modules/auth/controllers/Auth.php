@@ -157,7 +157,6 @@ class Auth extends AUTH_Controller {
 	}
 	public function out()
 	{
-		$this->db->delete('auth',['token' => $_COOKIE['token']]);
 		$this->logout();
 	}
 	public function upgrade()

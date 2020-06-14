@@ -1,5 +1,17 @@
-<div class="card-columns">
+<link rel="stylesheet" href="<?= base_url();?>node_modules/jquery.filer/css/jquery.filer.css">
+<link rel="stylesheet" href="<?= base_url();?>node_modules/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css">
+	<label for="">Kategori</label>
 
+	<div class="row flex-row overflow-auto mb-3">
+		<a href="<?= site_url('admin/dokumentasi/category?back='.uri_string())?>">
+		<div class="item waves-effect rounded shadow ml-3 card-text border p-2 pl-3 pr-3 mr-2 pb-0 bg-white" style="border-radius:100px !important;"><i class="fa fa-plus"></i></div>
+		</a>
+		<?= @$category; ?>
+	</div>
+
+	<label for="">List Dokumentasi</label>
+
+<div class="card-columns">
 	<a href="<?= site_url(uri_string()."/add"); ?>">
 	<div class="card p-3 waves-effect text-center shadow ml-0 mb-3 position-relative" style="height: 15em;">
 		<i class="fa fa-plus fa-2x m-auto position-absolute" style="left:0; right:0;top:0;bottom:0;"></i>	
@@ -7,7 +19,13 @@
 	</a>
 
 	<?= $list; ?>
+
 </div>
+<div class="w-100 text-center">
+	<?= $this->pagination->create_links(); ?>
+</div>
+    <script src="<?= base_url();?>node_modules/jquery.filer/js/jquery.filer.js" ></script>
+
 <style>
 	.text-sm{
 		font-size: x-small !important;
@@ -34,13 +52,13 @@
 		margin-top: 50%;
 	}
 	.card:hover > .cover-card{
-		margin-top: 50%;
+		margin-top: 40%;
 		transition: 0.3s;
 	}
 	@media screen and (max-width: 480px) {
 
 		.card .cover-card{
-			margin-top: 50%;
+			margin-top: 40%;
 			transition: 0.3s;
 		}	
 	}

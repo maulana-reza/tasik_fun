@@ -1,3 +1,14 @@
+
+    <section class="home-slider owl-carousel">
+      
+   <?= @$banner ;?>
+    </section>
+    <?= @$documentation;?>
+    
+    <?= @$category;?>
+    <!-- END slider -->
+    
+<!--     
 <div class="col-8 col-md-6 m-auto h-100 text-center" >
  <img src="<?= base_url();?>assets/templates/default/images/in_progress.svg" alt="" class="w-100">
  <div >SEDANG DALAM PROSES</div>
@@ -16,4 +27,4 @@
 	    font-size: 2.4em;
 	}
 } 
-</style>
+</style> -->

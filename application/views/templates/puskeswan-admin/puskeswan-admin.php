@@ -34,13 +34,13 @@ foreach ($modals as $key => $modal) {
 <body>
     <div class="wrapper">
         <!-- Sidebar Holder -->
-        <nav id="sidebar" class="shadow bg-bottom-blue" style=" background-image: url('<?= base_url('assets/templates/puskeswan-admin/img/bg-bottom-admin.svg'); ?>');" >
+        <nav id="sidebar" class="shadow bg-bottom-blue" style=" " >
             <div class="sidebar-header">
             	<div class="sidebar-image d-inline-block">	
             	<img src="" class="float-left" >
             	</div>
             	<div class="sidebar-title d-inline-block p-1">
-                <h3 class="p-0 m-0"><?= getenv("APP_NAME") ;?></h3>
+                <a href="<?= site_url('') ?>"><h3 class="p-0 m-0"><?= getenv("APP_NAME") ;?></h3></a>
             	</div>
                     <button type="button" id="sidebarCollapse" class="navbar-btn float-right" style="width: 40px;">
                         <span></span>
@@ -102,9 +102,13 @@ foreach ($modals as $key => $modal) {
     <?php endif ?>
 			<?= @$content ?>
 
+    <footer class="text-center content w-100 mt-5 pt-5">
+        <p>Design by <a href="mailto:7392maulana@gmail.com" class="text-cyan ">Reza</a></p>
+    </footer>
         </div>
-    </div>
 
+
+    </div>
 </body>
 </html>
  
@@ -119,6 +123,25 @@ foreach ($modals as $key => $modal) {
             $('#sidebarCollapse2').on('click', function() {
                 $(this).toggleClass('active');
             });
+            $('[data-toggle="modal"]').on('click', function(e){
+                e.preventDefault();
+            });
+
+            $('.banner').on('click', function(e){
+                e.preventDefault();
+                link=$(this).attr('href');
+                if(confirm('Pasang ke banner?')){
+                    window.location=link;
+                }
+            })
+
+            $('.remove-banner').on('click', function(e){
+                e.preventDefault();
+                link=$(this).attr('href');
+                if(confirm('Hapus dari banner?')){
+                    window.location=link;
+                }
+            })
             $('.delete').on('click', function(e){
                 e.preventDefault();
                 link=$(this).attr('href');

@@ -1,5 +1,12 @@
+
 <link rel="stylesheet" href="<?= base_url();?>node_modules/jquery.filer/css/jquery.filer.css">
 <link rel="stylesheet" href="<?= base_url();?>node_modules/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css">
+	<label for="">Kategori</label>
+
+	<div class="row flex-row overflow-auto category mb-3">
+		<div class="item waves-effect rounded shadow ml-3 card-text border p-2 pl-3 pr-3 mr-2 pb-0 bg-white "  style="border-radius:100px !important;"><i class="fa fa-plus"></i></div>
+		<?= @$category; ?>
+	</div>
 <?= form_open_multipart(); ?>
 
 	<div class="card p-3 mb-3">
@@ -22,6 +29,7 @@
 
     <script src="<?= base_url();?>node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js" ></script>
     <script src="<?= base_url();?>node_modules/jquery.filer/js/jquery.filer.js" ></script>
+
 <style>
 	.jFiler-input-dragDrop{
 		width: 100%;
@@ -38,9 +46,6 @@
         console.error( error );
     } );
 	$(document).ready(function(){
-	function check(test){
-
-	}
 	let item = '<li class="jFiler-item col-12 col-md-3 p-0">\
 						<div class="jFiler-item-container w-100 mb-2">\
 							<div class="jFiler-item-inner">\
@@ -138,5 +143,5 @@
 			}
 		}
 	});
-})
+});
 </script>

@@ -9,7 +9,8 @@
  		'documentation.*',
  		'documentation_image.name as image_name',
  		'documentation_image.description as image_description',
- 		'documentation_image.id_documentation_image as image_id'
+ 		'documentation_image.id_documentation_image as image_id',
+ 		'category.name as category_name'
  	];
  	/**
  	 * Default get all documentation
@@ -19,7 +20,9 @@
  	{
  		$this->db->select($this->select);
  		$this->db->join('documentation_image', 'documentation_image.documentation_id = documentation.id_documentation','left');
+ 		$this->db->join('category', 'category.id_category = documentation.category_id','left');
  		$this->db->group_by('documentation.id_documentation');
+ 		$this->db->order_by('documentation.id_documentation', 'asc');
  		$data = $this->db->get('documentation')->result_array();
  		return $data;
  	}

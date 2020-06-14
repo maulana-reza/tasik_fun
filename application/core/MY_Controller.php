@@ -99,7 +99,9 @@ class MY_Controller extends CI_Controller
      */
     public function render($view_name=FALSE, $template=FALSE, $return=FALSE) {
         $this->set_tool();
-
+        if (strpos('home', uri_string()) || strpos('about', uri_string())) {
+            $this->get_about();
+        }
         if (is_null($template)) return $this->load->view($view_name, $this->getDatas(), $return);
         if (!$template) $template = self::$template_default;
         if (strpos($template, '/') !== false) {
@@ -402,6 +404,13 @@ class MY_Controller extends CI_Controller
     {
         $id_category = $this->session->userdata('selected_category');
         return $id_category ? $id_category : FALSE; 
+    }
+    public function get_about()
+    {
+
+        $data = $this->db->get('about')->row_array();
+        $this->session->set_userdata( $data );
+
     }
 
 }
