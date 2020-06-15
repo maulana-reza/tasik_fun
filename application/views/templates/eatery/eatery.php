@@ -80,9 +80,13 @@
           <div class="col-md-4 mb-5">
             <h3>Sosial Media Kami</h3>
             <p class="mb-5"><?=  $this->session->userdata('description'); ?></p>
-            <ul class="list-unstyled footer-link d-flex">
+            <ul class="list-unstyled footer-link ">
               <?php foreach ($this->session->userdata('sosial_media') as $key => $value): ?>
-                
+
+                <li class="d-block">
+                  <span class="d-block">Nama akun :</span>
+                  <a href="<?= $value['url'];?>"><span class="text-white"><?= $value['id']; ?></span></a>
+                </li>
 
                 <li class="d-block">
                   <span class="d-block">Nama akun :</span>

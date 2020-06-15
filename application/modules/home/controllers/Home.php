@@ -60,7 +60,7 @@ class Home extends MY_Controller {
 			$icon 	  = base_url(getenv('IMG_PATH')).'/'.$value['icon'];
 			$title 	  = $value['name'];
 			$result[] = '<div class="col-md-6 mb-4 mb-lg-0 col-lg-3 text-center overflow-hidden">
-			<img src="'.$icon.'" alt="" class="w-25">
+			<img src="'.$icon.'" alt="" class="w-25 m-3">
             <h4 class="mb-4 text-primary">'.$title.'</h4>
             <p>Pilihan Terbaik dari kami</p>
           </div>';
