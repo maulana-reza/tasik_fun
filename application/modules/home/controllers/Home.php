@@ -115,7 +115,7 @@ class Home extends MY_Controller {
                 </object>
                 
               </div>
-              
+              get_about
             </div>
             </a>';
 			}
@@ -128,9 +128,18 @@ class Home extends MY_Controller {
 				$result[]   = sprintf($wrapper,implode("", $temp));
 				$increment  = 0;
 				unset($temp);
+			}else{
+				$else 	= '
+				<div class="col-md-6">
+				%s
+				</div>
+				';
+				$else_[]   = sprintf($else,implode("", $temp));
+				$increment  = 0;
+				unset($temp);
 			}
 		}
-		return @$result ? implode("", $result) : false;
+		return @$result ? implode("", $result) : (@$else_ ? implode('', $else_) : false);
 
 	}
 

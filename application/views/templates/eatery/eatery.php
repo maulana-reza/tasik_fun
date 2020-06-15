@@ -78,13 +78,18 @@
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-4 mb-5">
-            <h3>About Us</h3>
+            <h3>Sosial Media Kami</h3>
             <p class="mb-5"><?=  $this->session->userdata('description'); ?></p>
-            <ul class="list-unstyled footer-link d-flex footer-social">
-              <li><a href="#" class="p-2"><span class="fa fa-twitter"></span></a></li>
-              <li><a href="#" class="p-2"><span class="fa fa-facebook"></span></a></li>
-              <li><a href="#" class="p-2"><span class="fa fa-linkedin"></span></a></li>
-              <li><a href="#" class="p-2"><span class="fa fa-instagram"></span></a></li>
+            <ul class="list-unstyled footer-link d-flex">
+              <?php foreach ($this->session->userdata('sosial_media') as $key => $value): ?>
+                
+
+                <li class="d-block">
+                  <span class="d-block">Nama akun :</span>
+                  <a href="<?= $value['url'];?>"><span class="text-white"><?= $value['id']; ?></span></a>
+                </li>
+              <?php endforeach ?>
+
             </ul>
 
           </div>

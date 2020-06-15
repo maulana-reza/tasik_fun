@@ -408,6 +408,9 @@ class MY_Controller extends CI_Controller
 
         $data = $this->db->get('about')->row_array();
         $this->session->set_userdata( $data );
+        $social['sosial_media'] = $this->db->get('social')->result_array();
+        
+        $this->session->set_userdata( $social );
 
     }
 
