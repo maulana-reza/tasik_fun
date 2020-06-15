@@ -16,7 +16,7 @@
       <div class="container">
         
         <div class="row no-gutters">
-          <?php var_dump($documentation);?>
+          <?= $documentation ?>
         </div>
         
 

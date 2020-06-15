@@ -60,7 +60,7 @@ class Home extends MY_Controller {
 			$icon 	  = base_url(getenv('IMG_PATH')).'/'.$value['icon'];
 			$title 	  = $value['name'];
 			$result[] = '<div class="col-md-6 mb-4 mb-lg-0 col-lg-3 text-center overflow-hidden">
-			<img src="'.$icon.'" alt="" class="w-100">
+			<img src="'.$icon.'" alt="" class="w-25">
             <h4 class="mb-4 text-primary">'.$title.'</h4>
             <p>Pilihan Terbaik dari kami</p>
           </div>';
@@ -105,7 +105,7 @@ class Home extends MY_Controller {
 				<a href="'.$url.'" title="">
 				<div class="sched d-block d-lg-flex">
               <div class="bg-image" style="background-image: url('.$img.');"></div>
-              <div class="text">
+              <div class="w-100"class="text">
                 <h3>'.$title.'</h3>
                 <p style="font-size:small" class="text-dark m-0 p-0">'.convert_date($value['date_create'],'d / F / Y - H : i').'</p>
                 <p>'.$text.'</p>
