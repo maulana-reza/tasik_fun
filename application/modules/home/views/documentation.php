@@ -18,8 +18,6 @@
         <div class="row no-gutters">
           <?= $documentation ?>
         </div>
-        
-
       </div>
     </section> <!-- .section -->
 

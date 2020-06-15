@@ -167,10 +167,10 @@ class Dokumentasi extends MY_Controller {
 					      </div>';
 		}
 		$data = '
-					    <section class="home-slider-loop-false  inner-page owl-carousel">
+					    <section class="home-slider-loop-false inner-page owl-carousel">
 					    %s </section>
 		';
-		return $result ? sprintf($data,implode("", $result))  : false;
+		return @$result ? sprintf($data,implode("", $result)) : false;
 	}
 
 }
