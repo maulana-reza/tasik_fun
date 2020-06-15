@@ -13,9 +13,6 @@
     <?php echo form_input($password);?>
       <div class="checkbox mb-3 text-right">
 
-        <label>
-     <a href="forgot_password" class="text-white"> <?php echo lang('login_forgot_password');?></a>
-        </label>
       </div>
       <?php echo form_submit('submit', lang('login_submit_btn'),'class=" pl-5 pr-5 pt-2 pb-2 text-uppercase text-center b-r-100 shadow bg-white border-0 text-blue font-weight-bold  pl-0"');?>
       <!-- <button class="pl-5 pr-5 pt-2 pb-2 text-center b-r-100 shadow bg-white border-0 text-blue font-weight-bold  pl-0"  type="submit" >LOGIN</button> -->

@@ -78,7 +78,7 @@ class About extends ADMIN_Controller {
           $_FILES['file']['size']       = $files[$name]['size'][$index];
 
           // Set preference
-          $config['upload_path']        = getenv('IMG_PATH'); 
+          $config['upload_path']        = 'assets/sosmed_icon'; 
           $config['allowed_types']      = 'jpg|jpeg|png';
           $config['max_size']           = '2000';
           $config['encrypt_name']       = TRUE; // max_size in kb
@@ -96,7 +96,7 @@ class About extends ADMIN_Controller {
                 'id'	        	    => $index_[$index+1],
                 'url'   		        => $url[$index+1],
                 'img'                   => $filename,
-                'path'					=> site_url($path),
+                'path'					=> base_url('assets/sosmed_icon'),
             ];
 
           }else{
@@ -181,7 +181,6 @@ class About extends ADMIN_Controller {
 		$data['company_name'] = [
 			'name'		=> 'company_name',
 			'class'		=> 'form-control',
-			'required'	=> 'true',
 			'value'		=> @$abouts['company_name'],
 		];
 		$data['address'] = [
@@ -198,19 +197,16 @@ class About extends ADMIN_Controller {
 		$data['phone_number'] = [
 			'name'		=> 'phone_number',
 			'class'		=> 'form-control',
-			'required'	=> 'true',
 			'value'		=> @$abouts['phone_number'],
 		];
 		$data['email'] = [
 			'name'		=> 'email',
 			'class'		=> 'form-control',
-			'required'	=> 'true',
 			'value'		=> @$abouts['email'],
 		];
 		$data['medsos'] = [
 			'name'		=> 'medsos',
 			'class'		=> 'form-control upload',
-			'required'	=> 'true',
 			'type'		=> 'file'
 		];
 		$this->addMultipleData($data);

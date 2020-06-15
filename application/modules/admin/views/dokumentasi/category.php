@@ -4,7 +4,7 @@
 
 <div class="card p-3">
   <label for="category">Kategori</label>
-  <input type="file" name="category[]" class="category-input">
+  <input type="file" name="category[]" class="category-input" multiple="true">
 </div>
 <div class="text-right">
     <button type="submit" name="submit" class="btn btn-primary ml-0 mr-0 mt-3" style="bottom:0; right:0; border-radius: 5px !important;" value="submit">SUBMIT</button>

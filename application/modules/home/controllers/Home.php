@@ -27,7 +27,6 @@ class Home extends MY_Controller {
 		$documentation  			= $this->documentation_model->get();
 		$list_doc['documentation']	= $this->builder_documentation($documentation);
 		$add['documentation']		= $this->load->view('documentation', $list_doc, TRUE);
-
 		$this->addMultipleData($add);
 	}
 	private function builder_banner($banner)
@@ -39,7 +38,7 @@ class Home extends MY_Controller {
 			$text 	= strlen($value['description']) > 100 ? substr($value['description'], 0,100).'...' : $value['description'];
 
 			$result[] = '
-			      <div class="slider-item" style="'.$img.'">
+			      <div class="slider-item" style="background-image:url('.$img.')">
 			        <div class="container">
 			          <div class="row slider-text align-items-center justify-content-center">
 			            <div class="col-md-8 text-center col-sm-12 element-animate">
@@ -73,6 +72,7 @@ class Home extends MY_Controller {
 	public function builder_documentation($documentation)
 	{
 		$increment = 0;
+		
 		foreach ($documentation as $key => $value) {
 			$increment +=1;
 			$img 	= base_url(getenv('IMG_PATH')).'/'.$value['image_name']; 

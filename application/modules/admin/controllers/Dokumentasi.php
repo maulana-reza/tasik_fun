@@ -144,6 +144,9 @@ class Dokumentasi extends ADMIN_Controller {
 	public function form_edit($documentation_id)
 	{
 
+
+		$category 				= $this->db->get('category')->result_array();
+		$this->data['category'] = $this->builder_category($category);
 		$dokumentasi 	= $this->documentation_model->get_documentation_by_id_documentation($documentation_id);
 		if (@!$dokumentasi[0]) {
 			$array[] = [
@@ -345,7 +348,7 @@ class Dokumentasi extends ADMIN_Controller {
 		}
 
 		$this->form_validation->set_rules('title', 'Judul', 'trim|required|is_unique[documentation.title]');
-		$this->form_validation->set_rules('description', 'Deskripsi', 'trim|required');
+		$this->form_validation->set_rules('description', 'Deskripsi', '');
 		if ($this->form_validation->run() === FALSE) {
 
 			$array[] = [
@@ -490,13 +493,12 @@ class Dokumentasi extends ADMIN_Controller {
 		}
 		$desc 	= $this->input->post('desc');
 		$insert = $this->upload_category($_FILES,$desc,'category');
-
 		if ($category_id) {
 
 			$pesan 	= 'Berhasil mengubah kategori';
 			$insert_ = [
 				'icon' => $insert[0]['icon'],
-				'name' => $insert[0]['name'],
+				'name' => $insert[0]['nopen ame'],
 			];
 
 			$this->db->where('id_category', $category_id);
@@ -511,7 +513,7 @@ class Dokumentasi extends ADMIN_Controller {
 			'type' => 'success' 
 		];
 		alert($array);
-		redirect($this->input->get('back'),'refresh');
+		// redirect($this->input->get('back'),'refresh');
 
 	}
 	 public function upload_category($files,$index_,$name){

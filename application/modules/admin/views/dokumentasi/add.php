@@ -2,13 +2,15 @@
 <link rel="stylesheet" href="<?= base_url();?>node_modules/jquery.filer/css/jquery.filer.css">
 <link rel="stylesheet" href="<?= base_url();?>node_modules/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css">
 	<label for="">Kategori</label>
-
+	
 	<div class="row flex-row overflow-auto category mb-3">
+		<a href="<?= site_url('admin/dokumentasi/category?back='.uri_string())?>">
+		
 		<div class="item waves-effect rounded shadow ml-3 card-text border p-2 pl-3 pr-3 mr-2 pb-0 bg-white "  style="border-radius:100px !important;"><i class="fa fa-plus"></i></div>
+	</a>
 		<?= @$category; ?>
 	</div>
 <?= form_open_multipart(); ?>
-
 	<div class="card p-3 mb-3">
 		<label for="">Judul</label>
 		<?= form_input($title);?>
