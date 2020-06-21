@@ -172,7 +172,7 @@ class AUTH_Controller extends MY_Controller
 		$this->ion_auth->logout();
 
 		// redirect them to the login page
-		redirect('profile', 'refresh');
+		redirect('auth', 'refresh');
 	}
 
 	/**

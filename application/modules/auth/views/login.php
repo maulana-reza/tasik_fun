@@ -23,4 +23,6 @@
     </div>
   </div>
   <br>
-
+  <div class="text-center">
+    <?= anchor(base_url(), 'kembali ke halaman utama','class=""');?>
+  </div>
