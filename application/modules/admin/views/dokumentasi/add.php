@@ -1,7 +1,6 @@
-
 <link rel="stylesheet" href="<?= base_url();?>node_modules/jquery.filer/css/jquery.filer.css">
 <link rel="stylesheet" href="<?= base_url();?>node_modules/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css">
-	<label for="">Kategori</label>
+<label for="">Kategori</label>
 	
 	<div class="row flex-row overflow-auto category mb-3">
 		<a href="<?= site_url('admin/dokumentasi/category?back='.uri_string())?>">
@@ -11,6 +10,7 @@
 		<?= @$category; ?>
 	</div>
 <?= form_open_multipart(); ?>
+
 	<div class="card p-3 mb-3">
 		<label for="">Judul</label>
 		<?= form_input($title);?>
@@ -19,17 +19,18 @@
 		<label for="">Deskripsi</label>
 		<?= form_textarea($description);?>
 	</div>
-	<div class="card p-3 ">
-		<label for="image">Gambar</label>
+	<div class="card p-3 mb-3">
+		<label for="image">Tambah Gambar</label>
 		<input type="file" id="file_input" name="image[]" multiple="" class="w-100">
 	</div>
 	<div class="text-right">
-		<button type="submit" name="submit" class="btn btn-primary ml-0 mr-0 mt-3" style="bottom:0; right:0; border-radius: 5px !important;" value="submit">Tambahkan</button>
+		<button type="submit" name="submit" class="btn btn-primary ml-0 mr-0 mt-3" style="bottom:0; right:0; border-radius: 5px !important;" value="submit">Tambah</button>
 	</div>
 <?= form_close(); ?>
     <!-- npm modules -->
+    <script src="<?= base_url();?>node_modules/ckeditor4/ckeditor.js" ></script>
 
-    <script src="<?= base_url();?>node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js" ></script>
+    <!-- <script src="<?= base_url();?>node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js" ></script> -->
     <script src="<?= base_url();?>node_modules/jquery.filer/js/jquery.filer.js" ></script>
 
 <style>
@@ -37,17 +38,59 @@
 		width: 100%;
 	}
 </style>
+<style>
+	.text-sm{
+		font-size: x-small !important;
+	}
+	.card-text{
+		font-size: small !important;
+	}
+	.delete-image .cover-card{
+		opacity: 0;
+	}
+	.delete-image:hover > .fa-trash{
+		display: block !important;
+	}
 
+	.delete-image:hover {
+		-webkit-box-shadow: inset 0px -200px 52px -53px rgba(0,0,0,0.75);
+		-moz-box-shadow: inset 0px -200px 52px -53px rgba(0,0,0,0.75);
+		box-shadow: inset 0px -200px 52px -53px rgba(0,0,0,0.75);
+		transition: 0.2s;
+	}
+	.delete-image:hover > .cover-card{
+		opacity: 0.5;
+		transition: 0.1s;
+	}
+	@media screen and (max-width: 480px) {
+	card-text{
+		font-size: small !important;
+	}
+		.card .cover-card{
+			opacity: 0.5;
+			transition: 0.3s;
+		}	
+	}
+</style>
 <script type="text/javascript">
 
-	ClassicEditor
-    .create( document.querySelector( '#editor' ) )
-    .then( editor => {;
-    } )
-    .catch( error => {
-        console.error( error );
-    } );
+	$('.delete-item').on('click',function(e){
+		e.preventDefault();
+		let url 	= $(this).attr('href');
+		$('[name="submit"]').trigger('click');
+		$('[name="submit"]').ajaxSubmit({url: url, type: 'post'});
+
+	})
+	CKEDITOR.editorConfig = function( config ) {
+	config.language = 'es';
+	config.uiColor = '#F7B42C';
+	config.height = 300;
+	config.toolbarCanCollapse = true;
+	};
+	CKEDITOR.replace('description');
+	
 	$(document).ready(function(){
+	
 	let item = '<li class="jFiler-item col-12 col-md-3 p-0">\
 						<div class="jFiler-item-container w-100 mb-2">\
 							<div class="jFiler-item-inner">\
@@ -145,5 +188,5 @@
 			}
 		}
 	});
-});
+})
 </script>

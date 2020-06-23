@@ -36,11 +36,13 @@ foreach ($modals as $key => $modal) {
         <!-- Sidebar Holder -->
         <nav id="sidebar" class="shadow bg-bottom-blue" style=" " >
             <div class="sidebar-header">
-            	<div class="sidebar-image d-inline-block">	
-            	<img src="" class="float-left" >
-            	</div>
+            	<div class="sidebar-image d-inline-block w-75">	
+            	<a href="<?= site_url('') ?>">
+                <img src="<?= $this->config->item('logo_path');?>" class="float-left w-100" >
+            	</a>
+                </div>
             	<div class="sidebar-title d-inline-block p-1">
-                <a href="<?= site_url('') ?>"><h3 class="p-0 m-0"><?= getenv("APP_NAME") ;?></h3></a>
+                <!-- <a href="<?= site_url('') ?>"><h3 class="p-0 m-0"><?= getenv("APP_NAME") ;?></h3></a> -->
             	</div>
                     <button type="button" id="sidebarCollapse" class="navbar-btn float-right" style="width: 40px;">
                         <span></span>

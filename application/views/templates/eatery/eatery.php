@@ -26,7 +26,9 @@
     <header role="banner">
       <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container">
-          <a class="navbar-brand" href="index.html"><?= getenv('APP_NAME');?></a>
+          <a class="navbar-brand" href="index.html">
+              <img src="<?= $this->config->item('logo_path');?>" alt="" class="w-25 position-absolute" style="top:-35px; left: 0;">
+            </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -72,7 +74,6 @@
   <?php endif ?>
 
     <?= $content;?>
-  
 
     <footer class="site-footer" role="contentinfo">
       <div class="container">
@@ -82,14 +83,7 @@
             <p class="mb-5"><?=  $this->session->userdata('description'); ?></p>
             <ul class="list-unstyled footer-link ">
               <?php foreach ($this->session->userdata('sosial_media') as $key => $value): ?>
-
                 <li class="d-block">
-                  <span class="d-block">Nama akun :</span>
-                  <a href="<?= $value['url'];?>"><span class="text-white"><?= $value['id']; ?></span></a>
-                </li>
-
-                <li class="d-block">
-                  <span class="d-block">Nama akun :</span>
                   <a href="<?= $value['url'];?>"><span class="text-white"><?= $value['id']; ?></span></a>
                 </li>
               <?php endforeach ?>

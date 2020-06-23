@@ -554,3 +554,4 @@ $config['upgrade_confirm']  = "Akun anda telah terupgrade, sekarang anda bisa me
 $config['ads_title'] = "Pembayaran";
 $config['ads']   = "%s mengajukan pengiklanan";
 $config['ads_confirm']  = "Pengajuan iklan telah diterima";
+$config['logo_path']	= $config['base_url'].getenv('LOGO_PATH');

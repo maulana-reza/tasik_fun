@@ -35,8 +35,9 @@
 	</div>
 <?= form_close(); ?>
     <!-- npm modules -->
+    <script src="<?= base_url();?>node_modules/ckeditor4/ckeditor.js" ></script>
 
-    <script src="<?= base_url();?>node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js" ></script>
+    <!-- <script src="<?= base_url();?>node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js" ></script> -->
     <script src="<?= base_url();?>node_modules/jquery.filer/js/jquery.filer.js" ></script>
 
 <style>
@@ -87,17 +88,16 @@
 		$('[name="submit"]').ajaxSubmit({url: url, type: 'post'});
 
 	})
-	ClassicEditor
-    .create( document.querySelector( '#editor' ) )
-    .then( editor => {;
-    } )
-    .catch( error => {
-        console.error( error );
-    } );
+	CKEDITOR.editorConfig = function( config ) {
+	config.language = 'es';
+	config.uiColor = '#F7B42C';
+	config.height = 300;
+	config.toolbarCanCollapse = true;
+	};
+	CKEDITOR.replace('description');
+	
 	$(document).ready(function(){
-	function check(test){
-
-	}
+	
 	let item = '<li class="jFiler-item col-12 col-md-3 p-0">\
 						<div class="jFiler-item-container w-100 mb-2">\
 							<div class="jFiler-item-inner">\

@@ -41,7 +41,9 @@
 		<button type="submit" name="submit" class="btn btn-primary ml-0 mr-0 mt-3" style="bottom:0; right:0; border-radius: 5px !important;" value="submit">Ubah</button>
 	</div>
 <?= form_close(); ?>
-<script src="<?= base_url();?>node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js" ></script>
+    <script src="<?= base_url();?>node_modules/ckeditor4/ckeditor.js" ></script>
+
+<!-- <script src="<?= base_url();?>node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js" ></script> -->
 <script src="<?= base_url();?>node_modules/jquery.filer/js/jquery.filer.js" ></script>
 <style>
 	.item{
@@ -49,20 +51,29 @@
 	}
 </style>
 <script type="text/javascript">
-ClassicEditor
-    .create( document.querySelector('[name="description"]') )
-    .then( editor => {;
-    } )
-    .catch( error => {
-        console.error( error );
-    } );
-    ClassicEditor
-    .create( document.querySelector('[name="address"]') )
-    .then( editor => {;
-    } )
-    .catch( error => {
-        console.error( error );
-    } );
+// ClassicEditor
+//     .create( document.querySelector('[name="description"]') )
+//     .then( editor => {;
+//     } )
+//     .catch( error => {
+//         console.error( error );
+//     } );
+//     ClassicEditor
+//     .create( document.querySelector('[name="address"]') )
+//     .then( editor => {;
+//     } )
+//     .catch( error => {
+//         console.error( error );
+//     } );
+
+	CKEDITOR.editorConfig = function( config ) {
+	config.language = 'es';
+	config.uiColor = '#F7B42C';
+	config.height = 300;
+	config.toolbarCanCollapse = true;
+	};
+	CKEDITOR.replace('description');
+	CKEDITOR.replace('address');
     $(document).ready(function(){
 	let item = '<li class="jFiler-item col-12 col-md-3 p-0">\
 						<div class="jFiler-item-container w-100 mb-2">\

@@ -68,6 +68,9 @@ class About extends ADMIN_Controller {
       }
       foreach ($index_ as $i => $value) {
         $index = $i - 1;
+        if (count($index_) == 1) {
+         $index = 0;
+        }    
         if(!empty(@$files[$name]['name'][$index])){
  
           // Define new $_FILES array - $_FILES['file']
@@ -93,8 +96,8 @@ class About extends ADMIN_Controller {
 
             // Initialize array
             $data[] = [
-                'id'	        	    => $index_[$index+1],
-                'url'   		        => $url[$index+1],
+                'id'	        	    => $index_[( count($index_) == 1 ? 0 : $index+1 )],
+                'url'   		        => $url[( count($index_) == 1 ? 0 : $index+1 )],
                 'img'                   => $filename,
                 'path'					=> base_url('assets/sosmed_icon'),
             ];

@@ -286,13 +286,15 @@ class MY_Controller extends CI_Controller
     public function upload_files($files,$index_,$name,$document_id = false){
  
       $data = array();
-
       // Looping all files 
       if (@!$index_) {
         return false;
       }
       foreach ($index_ as $i => $value) {
         $index = $i - 1;
+        if (count($index_) == 1) {
+         $index = 0;
+        }        
         if(!empty(@$files[$name]['name'][$index])){
  
           // Define new $_FILES array - $_FILES['file']
@@ -318,7 +320,7 @@ class MY_Controller extends CI_Controller
 
             // Initialize array
             $data[] = [
-                'description'           => $index_[$index+1],
+                'description'           => $index_[ ( count($index_) == 1 ? 0 : $index+1 ) ],
                 'documentation_id'      => @$document_id,
                 'name'                  => $filename,
             ];

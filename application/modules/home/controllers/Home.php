@@ -72,7 +72,6 @@ class Home extends MY_Controller {
 	public function builder_documentation($documentation)
 	{
 		$increment = 0;
-		
 		foreach ($documentation as $key => $value) {
 			$increment +=1;
 			$img 	= base_url(getenv('IMG_PATH')).'/'.$value['image_name']; 
@@ -95,8 +94,8 @@ class Home extends MY_Controller {
 	                <a href="'.$url.'" title="">
 	                <p class="text-primary h3">LIHAT</p>
 	                
-	                </object>
 	                </a>
+	                </object>
 	              </div>
 	            </div>
 	            </a>';
@@ -105,17 +104,16 @@ class Home extends MY_Controller {
 				<a href="'.$url.'" title="">
 				<div class="sched d-block d-lg-flex">
               <div class="bg-image" style="background-image: url('.$img.');"></div>
-              <div class="w-100"class="text">
+              <div class="text ">
                 <h3>'.$title.'</h3>
                 <p style="font-size:small" class="text-dark m-0 p-0">'.convert_date($value['date_create'],'d / F / Y - H : i').'</p>
                 <p>'.$text.'</p>
                 <object>
-                <a href="'.$url.'" title=""></a><p class="text-primary h3 nav-link cta-btn">LIHAT</p>
+                <a href="'.$url.'" title=""><p class="text-primary h3 nav-link cta-btn">LIHAT</p></a>
 
                 </object>
                 
               </div>
-              get_about
             </div>
             </a>';
 			}
@@ -135,11 +133,12 @@ class Home extends MY_Controller {
 				</div>
 				';
 				$else_[]   = sprintf($else,implode("", $temp));
-				$increment  = 0;
-				unset($temp);
+				// $increment  = 0;
+				// unset($temp);
 			}
 		}
-		return @$result ? implode("", $result) : (@$else_ ? implode('', $else_) : false);
+		$last = count(@$else_) > 1 ? $else_[count($else_) - 1] : "";
+		return @$result ? implode("", $result).$last : (@$else_ ? implode('', $else_) : false);
 
 	}
 

@@ -121,7 +121,6 @@ class Dokumentasi extends ADMIN_Controller {
 		];
 		$this->db->where('documentation.id_documentation', $documentation_id);
 		$this->db->update('documentation', $documentation);
-
 		$images 			= $this->upload_files($_FILES,$this->input->post('desc'),'image',$documentation_id);
 		// insert
 		if ($images) {
@@ -178,13 +177,13 @@ class Dokumentasi extends ADMIN_Controller {
 	public function builder_image($documentation_image)
 	{
 		foreach ($documentation_image as $key => $value) {
-			$temp 	= '<div class="card delete-image p-3 waves-effect text-center shadow ml-0 mb-0 position-relative overflow-hidden" style="height: 15em;">
+			$temp 		= '<div class="card delete-image p-3 waves-effect text-center shadow ml-0 mb-0 position-relative overflow-hidden" style="height: 15em;">
 						<img src="%s" alt="gambar-dokumentasi" class="position-absolute h-100" style="left:0; right:0;top:0;bottom:0;">
 						%s
 						</div>';
-			$image  = base_url('assets/uploads/'.$value['image_name']);
-			$delete = anchor(site_url('admin/dokumentasi/delete_image/'.$value['image_id'].'/'.$value['id_documentation']), ' <i class="fa fa-trash fa-2x"></i>','class=" cover-card m-3 " style="position:absolute; top:0;right:0;bottom:0;"');
-			$result[]= sprintf($temp,$image,$delete);
+			$image  	= base_url('assets/uploads/'.$value['image_name']);
+			$delete 	= anchor(site_url('admin/dokumentasi/delete_image/'.$value['image_id'].'/'.$value['id_documentation']), ' <i class="fa fa-trash fa-2x"></i>','class=" cover-card m-3 " style="position:absolute; top:0;right:0;bottom:0;"');
+			$result[] 	= sprintf($temp,$image,$delete);
 		}
 		return @$result ? implode("", $result) : false ;
 	}
@@ -362,6 +361,7 @@ class Dokumentasi extends ADMIN_Controller {
 			'title'			=> $this->input->post('title'),
 			'description'	=> $this->input->post('description'),
 			'users_id'		=> $this->get_id(),
+			'category_id'	=> $this->get_selected_category(),
 		];
 		$this->db->insert('documentation', $documentation);
 		$documentation_id 	= $this->db->insert_id();
@@ -384,6 +384,7 @@ class Dokumentasi extends ADMIN_Controller {
 			'type' => 'success' 
 		];
 		alert($array);
+		// redirect('admin/dokumentasi','refresh');
 
 	}
 	/**
