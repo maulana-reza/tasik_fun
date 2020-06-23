@@ -57,7 +57,7 @@
   <?php if (@$remove_banner): ?>
     
     <section class="home-slider-loop-false  inner-page owl-carousel">
-      <div class="slider-item" style="background-image: url('img/hero_2.jpg');">
+      <div class="slider-item" style="background-image: url('<?= base_url('assets/logo/bg.png');?>');">
         
         <div class="container">
           <div class="row slider-text align-items-center justify-content-center">
