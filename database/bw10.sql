@@ -16,6 +16,57 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`bw10` /*!40100 DEFAULT CHARACTER SET ut
 
 USE `bw10`;
 
+/*Table structure for table `about` */
+
+DROP TABLE IF EXISTS `about`;
+
+CREATE TABLE `about` (
+  `company_name` varchar(55) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `location` varchar(55) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone_number` varchar(55) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(55) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `about` */
+
+insert  into `about`(`company_name`,`address`,`location`,`phone_number`,`email`,`description`) values 
+('Nama perusahaan','<p>paraghraph</p>\r\n',NULL,'0853533899655','7392maulana@gmail.comm','<p>address</p>\r\n');
+
+/*Table structure for table `banner` */
+
+DROP TABLE IF EXISTS `banner`;
+
+CREATE TABLE `banner` (
+  `id_banner` int(11) NOT NULL AUTO_INCREMENT,
+  `documentation_id` int(11) NOT NULL,
+  PRIMARY KEY (`id_banner`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `banner` */
+
+insert  into `banner`(`id_banner`,`documentation_id`) values 
+(3,9),
+(4,23);
+
+/*Table structure for table `category` */
+
+DROP TABLE IF EXISTS `category`;
+
+CREATE TABLE `category` (
+  `id_category` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(55) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `icon` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id_category`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `category` */
+
+insert  into `category`(`id_category`,`name`,`icon`) values 
+(27,'Fashion','4fe43cad8aa3520656f86c836e19ec37.jpg'),
+(28,'Food','1da1b6ab19c1d5873e7d11db5a93382e.jpg');
+
 /*Table structure for table `documentation` */
 
 DROP TABLE IF EXISTS `documentation`;
@@ -24,17 +75,18 @@ CREATE TABLE `documentation` (
   `id_documentation` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(55) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date_create` timestamp NOT NULL DEFAULT current_timestamp(),
+  `date_create` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `date_edit` timestamp NOT NULL DEFAULT current_timestamp(),
   `users_id` int(11) NOT NULL,
+  `category_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_documentation`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `documentation` */
 
-insert  into `documentation`(`id_documentation`,`title`,`description`,`date_create`,`date_edit`,`users_id`) values 
-(2,'dokumentasi - update','<p>Deskripsi</p>','2020-06-12 13:28:39','2020-06-12 13:39:35',1),
-(3,'dokumentasi','<p>Deskripsi</p>','2020-06-12 13:28:39','2020-06-12 13:28:39',1);
+insert  into `documentation`(`id_documentation`,`title`,`description`,`date_create`,`date_edit`,`users_id`,`category_id`) values 
+(23,'Taman jajan BW10','<p>Deskripsi</p>\r\n','2020-06-24 04:38:48','2020-06-24 04:38:48',1,27),
+(29,'TEST','<p>Deskripsi</p>\r\n','2020-06-24 04:52:38','2020-06-24 04:52:38',1,27);
 
 /*Table structure for table `documentation_image` */
 
@@ -46,20 +98,41 @@ CREATE TABLE `documentation_image` (
   `documentation_id` int(11) DEFAULT NULL,
   `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id_documentation_image`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `documentation_image` */
 
 insert  into `documentation_image`(`id_documentation_image`,`name`,`documentation_id`,`description`) values 
-(1,'61eaa4bb095a8bba9aa28e5d51d158b6.jpeg',2,''),
-(10,'ff1df89e91d55772ee09401bddabddb4.jpeg',2,''),
-(11,'ab13f73a074a7017be6da230d40a6bc8.jpeg',2,''),
-(12,'fbf08a1d72e34ccb745f93bcc1d136e2.jpeg',3,''),
-(13,'73dd4dfd0e1d2f75f877b40d1c06f1ae.jpeg',3,''),
-(14,'c7995b22b23870bc649cc116991c4df2.jpeg',2,''),
-(15,'e1396e50176a8b67d0d05454a22d5c26.jpeg',2,''),
-(16,'2d3f1abcd73133634f4f5ac9b3c7d9cf.jpeg',2,''),
-(17,'4433c536c249189f89b3d745de7e3dde.jpeg',2,'');
+(58,'482b95f8bdbea2e6351c146072e41690.jpg',25,''),
+(59,'f6468355699537f4ceed55a378197696.jpg',25,''),
+(60,'f4fa44a188ba104733047f5228c243df.jpg',25,''),
+(61,'9431088c1b40e35f73675f368a4f60b5.jpg',25,''),
+(62,'d3d8018198e43d5b00d769a7b4df1565.jpg',25,''),
+(63,'57129aa69e7a9227458de060e454841d.jpg',25,''),
+(64,'c80c91a23f834a878b822ae1349c3030.jpg',25,''),
+(65,'6e7d758526fbed3acd34988c28dd0efc.jpg',25,''),
+(66,'0b56ddb1772b0e30d3e2367a3c20ed67.jpg',25,''),
+(67,'975deb7c415037d5f1a67ccb0d3e0fe2.jpg',25,''),
+(68,'2f382f7251d39b451fb2dc361786a8fb.jpg',25,''),
+(69,'c69a771daa5514367dd0dca520dd6e72.jpg',25,''),
+(70,'5c13c190f570b0ad8fbad0318a43771c.jpg',25,''),
+(71,'1a09a9fb04cbd9e4232abad626f7ef6b.jpg',25,''),
+(72,'c35959987445ce8c0513a2df0c322671.jpg',25,''),
+(73,'c2252d4ed38d10a08d6545ef0a1f1bd1.jpg',25,''),
+(74,'909903b8d8eeee22189f25e05717a285.jpg',25,''),
+(75,'c9d08909f1defa44209813519d4d6bfe.jpg',25,''),
+(76,'1bb365ef428e4bd06ac5b0793390cda0.jpg',25,''),
+(77,'6baea92f6c8f4c133ad37f91f8f932d6.png',25,''),
+(98,'71a65f1ab659b7c8c882046111406a81.jpg',23,''),
+(105,'e880e28826379c5a2dade1fac880ba39.png',23,''),
+(106,'1e92b48d79517a5e1ea9ad3b2f57189d.jpg',23,''),
+(107,'90af49331352137bcf1465d13801b4ed.jpg',23,''),
+(108,'aae57eed4d58d96184e6897e88f86e84.jpg',23,''),
+(109,'34b61ed718b58f673948aa0b83c12770.jpg',26,''),
+(110,'fedf40c9f6bcda194dc6a0dd6800813b.jpg',27,''),
+(111,'facdd1f5e2b346de4f3446700bf26c1b.jpg',27,''),
+(112,'ebed454cb193b312feff1951781a3114.png',28,''),
+(113,'9f5a1e1f2fd282c5c8bdbc469b9712f7.png',29,'');
 
 /*Table structure for table `groups` */
 
@@ -88,18 +161,32 @@ CREATE TABLE `login_attempts` (
   `login` varchar(100) NOT NULL,
   `time` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8;
 
 /*Data for the table `login_attempts` */
 
-insert  into `login_attempts`(`id`,`ip_address`,`login`,`time`) values 
-(99,'::1','administratorp',1591894112),
-(100,'::1','admin',1591895659),
-(101,'::1','askdj',1591895753),
-(102,'::1','asdkj',1591895902),
-(103,'::1','asdkj',1591895902),
-(104,'::1','alsjdk',1591895922),
-(105,'::1','ajlsdkj',1591896045);
+/*Table structure for table `social` */
+
+DROP TABLE IF EXISTS `social`;
+
+CREATE TABLE `social` (
+  `id_social` int(11) NOT NULL AUTO_INCREMENT,
+  `id` varchar(55) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `img` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `path` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id_social`)
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `social` */
+
+insert  into `social`(`id_social`,`id`,`url`,`img`,`path`) values 
+(49,'7392maulana@gmail.com','mailto:7392maulana@gmail.com','gmail.jpg','path'),
+(50,'','','1865ac04b892267b1a3a5e14ba9bdeed.jpg','http://192.168.100.146/bw10/assets/sosmed_icon'),
+(51,'Hhh','Hhhj','5d5478b0a1ed272384824669da3302f3.jpg','http://192.168.100.146/bw10/assets/sosmed_icon'),
+(52,'','','5ce8fe747bb0efebbee75d3ed348954d.png','http://localhost/bw10/assets/sosmed_icon'),
+(53,'','','72cc60c552d004c9580face659fe9ed2.jpg','http://localhost/bw10/assets/sosmed_icon'),
+(54,'','','e147538fd2e5a549d988dc468158c6ee.png','http://localhost/bw10/assets/sosmed_icon');
 
 /*Table structure for table `users` */
 
@@ -135,17 +222,7 @@ CREATE TABLE `users` (
 /*Data for the table `users` */
 
 insert  into `users`(`id`,`ip_address`,`username`,`password`,`email`,`activation_selector`,`activation_code`,`forgotten_password_selector`,`forgotten_password_code`,`forgotten_password_time`,`remember_selector`,`remember_code`,`created_on`,`last_login`,`active`,`full_name`,`villages_id`,`phone`,`img`) values 
-(1,'127.0.0.1','administrator','$2y$12$ZM5xx.DXRDP0MwNaTWBQhOb9vXAG2Uk5VzH989fzAHAskv1/jfeA6','7392maulana@gmail.com',NULL,'',NULL,NULL,NULL,NULL,NULL,1268889823,1591941880,1,'Administrator',8208010010,'085353389965','730edc645f4103bfdd1ed40d8a76a41e.jpeg'),
-(34,'192.168.100.2','Voknam','$2y$10$IMfynFJQb9pINB2KYtCc7uqXhJyLvZs0XA2u.OuhVrDBdO41nDMZi','ardy544752@gmail.com',NULL,NULL,NULL,NULL,NULL,'692ccc7ef438041cde3f23e53a81e4db2c6c06d0','$2y$10$3XMSCeIGsiixnimLuqYxLe6RG//5cSVa96pQMAljNue7m75E9QEvq',1584416156,1584416237,1,'Voknam',2147483647,'089530056404',NULL),
-(60,'::1','administrators','$2y$10$XRE64UYxNF5rUNjwNCkCN.25y0f.GkwJlneGsmsuZZ.P6DUczhCke','psynuyul20@gmail.com',NULL,NULL,'0f22ff8f4acde503ceab','$2y$10$GdNBdFIomwBz3AwE/3l7PO6Mse8tl1NH.aPezhyoGu/gvWdYZRIGa',1585088600,NULL,NULL,1585074527,NULL,1,'psynuyul',NULL,NULL,NULL),
-(61,'::1','maulana-reza','$2y$10$F4LpjOQ5SmTXlTEPy1bkCuO/L49lPbF2or1XGVd1IS9vDjpAjJwDq','psynuyul1@gmail.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1585088999,1586526964,1,'psynuyul',NULL,NULL,NULL),
-(62,'192.168.1.6','asobiasobase','$2y$10$gWEMAEUwlaRTWX2s7BnhfebWUO3fSy4FtZCmiBHSNPCkS7WbBIx.K','psynuyul19@gmail.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1585217709,1586291594,1,'maulana',3206120006,'','0dac85112b62f26d8f66279477ed30d0.jpg'),
-(63,'192.168.1.6','TEST-1','$2y$10$MVX1r1qlJfHp7BoIz9ESs.NeD72ldoOYs42lTabbQ2ojv/wq2dj12','psynuyul9@gmail.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1585271520,1585294367,1,'TEST-1',1706030024,'085353389965',NULL),
-(64,'::1','asobiasbas','$2y$10$TXCk0l2Fbz6fHbcaZDNY1eI6yrvhgSmXEAo/VPX88XWnLvg65Y2R.','psynuyul5@gmail.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1585431490,NULL,1,'psynuyul',NULL,NULL,NULL),
-(65,'192.168.43.1','administratorsss','$2y$10$bI35QR8q1ixddKRD8dM/celVg1NU01P5CLmeNraPPSx6BNXIt1lJe','psynuyul15@gmail.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1585432814,NULL,1,'admins',NULL,NULL,NULL),
-(66,'192.168.43.1','administratorsssss','$2y$10$CBawSwEboXT1SeM0e1Jz.eyUA0bAEuJOC8cS5fiGlMUkK.y0MnrrK','psynuyul7@gmail.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1585432893,NULL,1,'admins',NULL,NULL,NULL),
-(67,'192.168.43.1','Asobi','$2y$10$TK1n2b0IPmdGtCup1tw/pOqbM0aVbu8dNk9/zYDRr9hDLNwB6W3ja','psynuyul8@gmail.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1585433261,1585435601,1,'Kdkkdksk',NULL,NULL,NULL),
-(68,'::1','alksdjalksdj','$2y$10$mn0oM2sLxytnitXqMtA3q.AfpWLASx.HLgEDirKbmtuZmATKtL3EK','psynuyul16@gmail.com','4c5e1cc4f7762ee25c89','$2y$10$mRmCUm62gtXrgKGBwP94N.m1lKgMt/fdpfqCi4YgLaY9fAgOXHD72',NULL,NULL,NULL,NULL,NULL,1585596187,NULL,0,'kasjdklajsdlk',NULL,NULL,NULL);
+(1,'127.0.0.1','administrator','$2y$12$ZM5xx.DXRDP0MwNaTWBQhOb9vXAG2Uk5VzH989fzAHAskv1/jfeA6','7392maulana@gmail.com',NULL,'',NULL,NULL,NULL,NULL,NULL,1268889823,1592944942,1,'Administrator',8208010010,'085353389965','730edc645f4103bfdd1ed40d8a76a41e.jpeg');
 
 /*Table structure for table `users_groups` */
 
