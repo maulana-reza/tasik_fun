@@ -1,8 +1,10 @@
 
-    <section class="home-slider owl-carousel">
-      
+    <div class=" w-100 bg-transparent">
+        <div class="bg-cover bg-transparent w-100 position-absolute mt-5" style="width:100px;height: 300px;z-index: 100;"></div>
+    <section class="home-slider-loop-false  inner-page owl-carousel">
    <?= @$banner ;?>
     </section>
+    </div>
     <?= @$documentation;?>
     
     <?= @$category;?>

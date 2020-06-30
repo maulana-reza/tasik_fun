@@ -24,6 +24,8 @@ class Home extends MY_Controller {
 		$list_cat['category'] 		= $this->builder_category($category);
 		$add['category'] 			= $this->load->view('category', $list_cat, TRUE);
 		$this->db->limit(4);
+
+		$this->db->where('category.name', 'Umum');
 		$documentation  			= $this->documentation_model->get();
 		$list_doc['documentation']	= $this->builder_documentation($documentation);
 		$add['documentation']		= $this->load->view('documentation', $list_doc, TRUE);
@@ -44,12 +46,11 @@ class Home extends MY_Controller {
 			            <div class="col-md-8 text-center col-sm-12 element-animate">
 			              <h1>'.ucfirst($title).'</h1>
 			              <p class="mb-5">'.$text.'</p>
-			              <p><a href="'.$url.'" class="btn btn-white btn-outline-white">LIHAT SEKARANG</a></p>
+			              <p><a href="'.$url.'" class="btn btn-white btn-outline-white position-relative" style="z-index:10000;">LIHAT SELENGKAPNYA</a></p>
 			            </div>
 			          </div>
 			        </div>
 			      </div>';
-
 
 		}
 		return @$result ? implode("", $result) : false;
@@ -59,11 +60,11 @@ class Home extends MY_Controller {
 		foreach ($category as $key => $value) {
 			$icon 	  = base_url(getenv('IMG_PATH')).'/'.$value['icon'];
 			$title 	  = $value['name'];
-			$result[] = '<div class="col-md-6 mb-4 mb-lg-0 col-lg-3 text-center overflow-hidden">
+			$anchor   = site_url('dokumentasi?category='.$value['id_category']); 
+			$result[] = '<a href="'.$anchor.'" title="" class="col-md-6 mb-4 mb-lg-0 col-lg-3 text-center overflow-hidden"><div class="">
 			<img src="'.$icon.'" alt="" class="w-25 m-3">
             <h4 class="mb-4 text-primary">'.$title.'</h4>
-            <p>Pilihan Terbaik dari kami</p>
-          </div>';
+          </div></a>';
 		}
 		return @$result ? implode("", $result) : false;
 
@@ -137,7 +138,7 @@ class Home extends MY_Controller {
 				// unset($temp);
 			}
 		}
-		$last = count(@$else_) > 1 ? $else_[count($else_) - 1] : "";
+		$last = @count(@$else_) > 1 ? $else_[count($else_) - 1] : "";
 		return @$result ? implode("", $result).$last : (@$else_ ? implode('', $else_) : false);
 
 	}

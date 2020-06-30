@@ -93,7 +93,7 @@ class AUTH_Controller extends MY_Controller
 				//if the login is successful
 				//redirect them back to the home page
 				$array[] = [
-					'text' => $this->ion_auth->messages(),
+					'text' => "Selamat Datang ".$this->session->userdata('username'),
 					'type' => 'info'
 				];
 				alert($array);

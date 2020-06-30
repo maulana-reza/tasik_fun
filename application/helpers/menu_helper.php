@@ -9,14 +9,22 @@ function get_all_menu()
 			'url'	=> site_url('admin/dashboard'),
 			'name' 	=>'dashboard',
 		],
-
 		[
-			'url'	=> site_url('admin/dokumentasi'),
-			'name' 	=>'dokumentasi',
+			'url'	=> site_url('admin/Article'),
+			'name' 	=>'Artikel',
 		],
 		[
-			'url'	=> site_url('admin/about'),
-			'name' 	=>'tentang kami',
+			'url'	=> site_url('admin/wisata'),
+			'name' 	=>'Tempat Wisata',
+		],
+
+		[
+			'url'	=> site_url('admin/wisata'),
+			'name' 	=>'Tentang kami',
+		],
+		[
+			'url'	=> site_url('auth/logout'),
+			'name' 	=>'keluar',
 		],
 	];
 	return $menu;

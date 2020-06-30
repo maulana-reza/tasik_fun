@@ -5,7 +5,6 @@
  * Date: 3/19/19
  * Time: 7:08 AM
  */
-require_once "LOG_Controller.php";
 class MY_Controller extends CI_Controller
 {
     protected $datas = array();
@@ -49,9 +48,7 @@ class MY_Controller extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if (getenv('LOG')=="TRUE") {
-            LOG_Controller::_get_all_respon();
-        }
+        
         $this->setDatas(array());
         $this->load->config('ion_auth');
         $this->menu_active();
@@ -320,8 +317,7 @@ class MY_Controller extends CI_Controller
 
             // Initialize array
             $data[] = [
-                'description'           => $index_[ ( count($index_) == 1 ? 0 : $index+1 ) ],
-                'documentation_id'      => @$document_id,
+                'kode_article'          => @$document_id,
                 'name'                  => $filename,
             ];
             

@@ -23,18 +23,20 @@
   </head>
   <body>
     
-    <header role="banner">
-      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div class="container">
-          <a class="navbar-brand" href="index.html">
-              <img src="<?= $this->config->item('logo_path');?>" alt="" class="w-25 position-absolute" style="top:-35px; left: 0;">
+    <header role="banner" >
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark position-fixed mt-md-5 mt-lg-5 w-100" >
+              <img src="<?= $this->config->item('logo_path');?>" alt="" class=" position-fixed w-50 d-md-none d-lg-none" style="top:-15px; left: 0;">
+
+        <div class="container ">
+          <a class="navbar-brand" href="<?= site_url('');?>">
+              <img src="<?= $this->config->item('logo_path');?>" alt="" class="w-25 position-absolute" style="top:-100px; left: 0;">
             </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
 
-          <div class="collapse navbar-collapse" id="navbarsExample05">
-            <ul class="navbar-nav ml-auto pl-lg-5 pl-0">
+          <div class="collapse navbar-collapse" id="navbarsExample05" style="margin-top: -50px;">
+            <ul class="navbar-nav ml-auto pl-lg-5 pl-0 mt-5 mt-md-0 pt-3 pt-md-0">
               <?php foreach (menu_client() as $key => $value): ?>
               
               <li class="nav-item">
@@ -55,8 +57,10 @@
     </header>
     <!-- END header -->
   <?php if (@$remove_banner): ?>
+        <div class="bg-cover bg-transparent w-100 position-absolute mt-5" style="width:100px;height: 300px;z-index: 10;"></div>
     
-    <section class="home-slider-loop-false  inner-page owl-carousel">
+    <section class="home-slider-loop-false inner-page owl-carousel">
+
       <div class="slider-item" style="background-image: url('<?= base_url('assets/logo/bg.png');?>');">
         
         <div class="container">
@@ -75,22 +79,14 @@
 
     <?= $content;?>
 
-    <footer class="site-footer" role="contentinfo">
-      <div class="container">
+    <footer class="site-footer pt-0" role="contentinfo">
+      <div class="text-left text-md-center mb-4">
+              <img src="<?= $this->config->item('logo_path');?>" alt="" class="m-0" style="top:-35px;width:200px;">
+</div>
+      <div class="container pt-2">
+
         <div class="row mb-5">
-          <div class="col-md-4 mb-5">
-            <h3>Sosial Media Kami</h3>
-            <p class="mb-5"><?=  $this->session->userdata('description'); ?></p>
-            <ul class="list-unstyled footer-link ">
-              <?php foreach ($this->session->userdata('sosial_media') as $key => $value): ?>
-                <li class="d-block">
-                  <a href="<?= $value['url'];?>"><span class="text-white"><?= $value['id']; ?></span></a>
-                </li>
-              <?php endforeach ?>
-
-            </ul>
-
-          </div>
+          
           <div class="col-md-5 mb-5">
             
             <div>
@@ -111,12 +107,22 @@
                 
               <li><a href="<?= $value['url'] ?>"><?= ucfirst(strtolower($value['name'])) ?></a></li>
               <?php endforeach ?>
-              <li><a href="<?= site_url('auth') ?>"><?= ucfirst(strtolower('sign-in')) ?></a></li>
+              <?php $ci =& get_instance(); ?>
+              <li><a href="<?= site_url('auth') ?>"><?= $ci->is_login() ? "Dashboard" : ucfirst(strtolower('sign-in')); ?></a></li>
 
             </ul>
           </div>
-          <div class="col-md-3">
-          
+          <div class="col-md-4 mb-5">
+            <h3>Sosial Media Kami</h3>
+            <ul class="list-unstyled footer-link ">
+              <?php foreach ($this->session->userdata('sosial_media') as $key => $value): ?>
+                <li class="d-block">
+                  <a href="<?= $value['url'];?>"><img src="<?= $value['path']."/".$value['img'] ;?>" alt="" width="30px" height="30px" class="rounded mr-2"><span class="text-white"><?= $value['id']; ?></span></a>
+                </li>
+              <?php endforeach ?>
+
+            </ul>
+
           </div>
         </div>
         <div class="row">

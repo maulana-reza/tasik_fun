@@ -12,9 +12,6 @@ MySQL - 10.4.12-MariaDB : Database - bw10
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`bw10` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
-
-USE `bw10`;
 
 /*Table structure for table `about` */
 
@@ -75,8 +72,8 @@ CREATE TABLE `documentation` (
   `id_documentation` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(55) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date_create` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `date_edit` timestamp NOT NULL DEFAULT current_timestamp(),
+  `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  `date_edit` timestamp NULL,
   `users_id` int(11) NOT NULL,
   `category_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_documentation`)

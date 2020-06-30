@@ -82,7 +82,8 @@ class About extends ADMIN_Controller {
 
           // Set preference
           $config['upload_path']        = 'assets/sosmed_icon'; 
-          $config['allowed_types']      = 'jpg|jpeg|png';
+          $config
+                                  ['allowed_types']      = 'jpg|jpeg|png';
           $config['max_size']           = '2000';
           $config['encrypt_name']       = TRUE; // max_size in kb
           //Load upload library

@@ -15,7 +15,6 @@ class Admin extends ADMIN_Controller {
 	public function index()
 	{
 		$this->prepare_data();
-		$this->addData('page_sub_title','Beberapa dokumentasi yang dijadikan banner');
 		$this->addData('remove_banner',true);
 		$this->render('dashboard');
 	}
@@ -24,24 +23,24 @@ class Admin extends ADMIN_Controller {
 	{
 
 		// $this->db->join('banner', 'banner.documentation_id = documentation.id_documentation');
-		// $data 						= $this->documentation_model->get();
+		// $data 						= $this->article_model->get();
 		// $data['banner'] 				= $this->builder_banner($data);
 		
 		// dokumentasi
 		// if ($this->get_selected_category()) {
 		// 	$this->db->where('documentation.category_id', $this->get_selected_category());
 		// }
-		$this->load->model('documentation_model');
-		$this->db->limit($this->limit);
-		$this->db->join('banner', 'banner.documentation_id = documentation.id_documentation');
-		$dokumentasi 			= $this->documentation_model->get();
-		$data['documentation'] 	= $this->builder_list($dokumentasi);
+		// $this->load->model('article_model');
+		// $this->db->limit($this->limit);
+		// $this->db->join('banner', 'banner.documentation_id = documentation.id_documentation');
+		// $dokumentasi 			= $this->article_model->get();
+		// $data['documentation'] 	= $this->builder_list($dokumentasi);
 		// if ($this->get_selected_category()) {
 		// 	$this->db->where('documentation.category_id', $this->get_selected_category());
 		// }
-		$dokumentasi_row		= count($this->documentation_model->get());
-		$this->pagination($dokumentasi_row);
-		$this->addMultipleData($data);
+		// $dokumentasi_row		= count($this->article_model->get());
+		// $this->pagination($dokumentasi_row);
+		// $this->addMultipleData($data);
 		
 	}
 	
