@@ -11,8 +11,9 @@ class Wisata extends ADMIN_Controller {
 	public function index()
 	{
 		$this->addData('page_title','Tempat Wisata');
-		$this->render('wisata/wisata');
 		$this->prepare_data();
+
+		$this->render('wisata/wisata');
 	}
 	private function prepare_data()
 	{
@@ -57,26 +58,24 @@ class Wisata extends ADMIN_Controller {
 		foreach ($wisata as $key => $value) {
 
 			$html[] = '
-					<div class="card flex-row flex-wrap">
-						<div class="card-header border-0">
-							<img src="'.base_url('assets/uploads/'.$value['image']).'" alt="">
+					<div class="card flex-row flex-wrap mb-2 overflow-hidden">
+						<div class="card-header border-0 p-0">
+							<img src="'.$this->config->item('img_path').'/'.$value['img_tempat'].'" alt="">
 						</div>
 						<div class="card-block px-2">
-							<h4 class="card-title">Title</h4>
-							<p class="card-text">Description</p>
-							<a href="#" class="btn btn-primary"><i class="fa fa-trash"></i></a>
+							<h4 class="card-title">'.$value['nama_tempat'].'</h4>
+							<p class="card-text">'.$value['alamat_tempat'].'</p>
+							<a href="'.site_url('admin/wisata/delete/'.$value['kode_tempat_wisata']).'" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
 						</div>
 						<div class="w-100"></div>
-						<div class="card-footer w-100 text-muted">
-							FOOTER
-						</div>
 					</div>';
 		}
 		return @$html ? implode("", $html) : false;
 	}
 	public function add()
 	{
-
+		$this->addData('btn_back','admin/wisata');
+		$this->submit();
 		$this->prepare_form();
 		$this->render('wisata/add');
 	}
@@ -88,6 +87,7 @@ class Wisata extends ADMIN_Controller {
 			'name'			=> 'title',
 			'class'			=> 'form-control',
 			'required'		=> true,
+			'value'			=> $this->form_validation->set_value('title'),
 		];
 
 		$data['address'] = [
@@ -95,10 +95,12 @@ class Wisata extends ADMIN_Controller {
 			'name'			=> 'address',
 			'class'			=> 'form-control',
 			'required'		=> true,
+			'value'			=> $this->form_validation->set_value('address'),
 		];
 
 		$data['file'] = [
-			'name'			=> 'file[]',
+			'type'			=> 'file',
+			'name'			=> 'file',
 			'class'			=> 'form-control',
 			'required'		=> true,
 		];
@@ -115,26 +117,8 @@ class Wisata extends ADMIN_Controller {
 	 *  
 	 * @return array
 	 */
-    public function upload_image($files,$index_,$name,$wisata_id = false){
+    public function upload_image_wisata($array,$name,$id){
  
-      // Looping all files 
-      if (@!$index_) {
-        return false;
-      }
-      foreach ($index_ as $i => $value) {
-        $index = $i - 1;
-        if (count($index_) == 1) {
-         $index = 0;
-        }        
-        if(!empty(@$files[$name]['name'][$index])){
- 
-          // Define new $_FILES array - $_FILES['file']
-          $_FILES['file']['name']       = $files[$name]['name'][$index];
-          $_FILES['file']['type']       = $files[$name]['type'][$index];
-          $_FILES['file']['tmp_name']   = $files[$name]['tmp_name'][$index];
-          $_FILES['file']['error']      = $files[$name]['error'][$index];
-          $_FILES['file']['size']       = $files[$name]['size'][$index];
-
           // Set preference
           $config['upload_path']        = getenv('IMG_PATH'); 
           $config['allowed_types']      = 'jpg|jpeg|png';
@@ -144,15 +128,17 @@ class Wisata extends ADMIN_Controller {
           $this->load->library('upload',$config); 
  
           // File upload
-          if($this->upload->do_upload('file')){
+          if($this->upload->do_upload($name)){
             // Get data about the file
             $uploadData = $this->upload->data();
             $filename = $uploadData['file_name'];
 
             // Initialize array
-            $data[] = [
-                'kode_article'          => @$document_id,
-                'name'                  => $filename,
+            $data= [
+                'kode_tempat_wisata'    => 'CBCSY'.str_pad($id ,3, "0", STR_PAD_LEFT),
+                'nama_tempat'           => $array['title'],
+                'alamat_tempat'         => $array['address'],
+                'img_tempat'			=> $filename,
             ];
             
           }else{
@@ -164,9 +150,7 @@ class Wisata extends ADMIN_Controller {
             alert($array);
             redirect(uri_string(),"REFRESH");
           }
-        }
-      }
-      return @$data : $data ? false;
+	      return @$data ? $data : false;
   }
   /**
    * Update function
@@ -191,11 +175,25 @@ class Wisata extends ADMIN_Controller {
 		if ($this->input->post('submit') != "submit") {
 			return false;
 		}
-		$wisata = [
-			'kode_tempat'	=> $this->input->post('kode_tempat'),
-			'name' 			=> $this->input->post('name'),
-			'image'			=> $this->input->post('address')
+		$this->form_validation->set_rules('title', 'Judul', 'trim|required');
+		if ( $this->form_validation->run() == TRUE ) {
+			$type 	 = "success";
+			$message = "Tempat Wisata Berhasil ditambahkan";
+			$id 	 = $this->db->get('tempat_wisata', 1)->row_array();
+			$id 	 = @$id['kode_tempat_wisata'] ?  (int) filter_var($id['kode_tempat_wisata'], FILTER_SANITIZE_NUMBER_INT) + 1 : 1;
+			$insert  = $this->upload_image_wisata($this->input->post(),'file',$id);
+			$this->db->insert('tempat_wisata', $insert);
+		}else{
+			$type    =  'danger';
+			$message =  validation_errors();
+		}
+		$array[] = [
+			'text' => $message,
+			'type' => $type,
 		];
+		alert($array);
+  // 		redirect('admin/wisata','refresh');
+
 	}
 
 }
