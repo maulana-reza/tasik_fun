@@ -6,7 +6,7 @@ function get_all_menu()
 {
 	$menu = [
 		[
-			'url'	=> site_url('admin/dashboard'),
+			'url'	=> site_url('admin'),
 			'name' 	=>'dashboard',
 		],
 		[

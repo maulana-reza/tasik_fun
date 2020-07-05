@@ -1,6 +1,11 @@
 <div class="card p-3">
 	<?= form_open_multipart();?>
 	<div class="form-group">
+		<label for=" kode">Kode Tempat Wisata (Readonly)</label>
+		<?= form_input($kode); ?>
+
+	</div>
+	<div class="form-group">
 		<label for="image">Image</label>
 		<?= form_input($file); ?>
 

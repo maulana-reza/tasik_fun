@@ -66,12 +66,66 @@ class Wisata extends ADMIN_Controller {
 							<h4 class="card-title">'.$value['nama_tempat'].'</h4>
 							<p class="card-text">'.$value['alamat_tempat'].'</p>
 							<a href="'.site_url('admin/wisata/delete/'.$value['kode_tempat_wisata']).'" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+							<a href="'.site_url('admin/wisata/edit/'.$value['kode_tempat_wisata']).'" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
 						</div>
 						<div class="w-100"></div>
 					</div>';
 		}
 		return @$html ? implode("", $html) : false;
 	}
+	public function edit($kode_wisata = 0){
+		$this->submit_edit();
+		$this->db->where('kode_tempat_wisata',$kode_wisata);
+		$data = $this->db->get('tempat_wisata')->result_array();
+		if(@!$data[0]){
+
+			$array[] = [
+				'text' => 'kode wisata tidak ditemukan',
+				'type' => 'danger'
+			];
+			alert($array);
+			redirect('admin/wisata/',"REFRESH");
+		}
+		$this->prepare_form_edit($data[0]);
+		$this->render('wisata/edit');
+
+	}
+
+	public function prepare_form_edit($wisata)
+	{
+		$data['kode'] = [
+			'type'			=> 'text',
+			'name'			=> 'kode',
+			'class'			=> 'form-control',
+            'required'		=> true,
+			'readonly'		=> true,
+			'value'			=> $wisata['kode_tempat_wisata'],
+		];
+		$data['title'] = [
+			'type'			=> 'text',
+			'name'			=> 'title',
+			'class'			=> 'form-control',
+			'required'		=> true,
+			'value'			=> $wisata['nama_tempat'],
+		];
+
+		$data['address'] = [
+			'type'			=> 'text',
+			'name'			=> 'address',
+			'class'			=> 'form-control',
+			'required'		=> true,
+			'value'			=> $wisata['alamat_tempat'],
+		];
+
+		$data['file'] = [
+			'type'			=> 'file',
+			'name'			=> 'file',
+			'class'			=> 'form-control',
+		];
+
+		$this->addMultipleData($data);
+	}
+
 	public function add()
 	{
 		$this->addData('btn_back','admin/wisata');
@@ -82,6 +136,18 @@ class Wisata extends ADMIN_Controller {
 
 	public function prepare_form()
 	{
+		$this->db->order_by('kode_tempat_wisata','desc');
+		$id 	 = $this->db->get('tempat_wisata', 1)->row_array();
+		$id 	 = @$id['kode_tempat_wisata'] ?  (int) filter_var($id['kode_tempat_wisata'], FILTER_SANITIZE_NUMBER_INT) + 1 : 1;
+
+		$data['kode'] = [
+			'type'			=> 'text',
+			'name'			=> 'kode',
+			'class'			=> 'form-control',
+			'required'		=> true,
+			'readonly'		=> true,
+			'value'			=> 'CBCSY'.str_pad($id ,3, "0", STR_PAD_LEFT),
+		];
 		$data['title'] = [
 			'type'			=> 'text',
 			'name'			=> 'title',
@@ -106,6 +172,29 @@ class Wisata extends ADMIN_Controller {
 		];
 		$this->addMultipleData($data);
 	}
+	public function submit_edit(){
+		if($this->input->post('submit') != "submit"){
+			return false;
+		}
+		if(@empty($_FILES['file']['name'])){
+			$data = [
+				'nama_tempat' 	=> $this->input->post('name'),
+            	'alamat_tempat' => $this->input->post('address'),
+			];
+		}else{
+			$data = $this->upload_image_wisata($this->input->post(),'file');
+		}
+
+		$this->db->where('kode_tempat_wisata',$this->input->post('kode_tempat_wisata'));
+		$this->db->update('tempat_wisata',$data);
+		$array[] = [
+			'text' => 'Tempat Wisata berhasil diubah',
+			'type' => 'success'
+		];
+		alert($array);
+//		redirect('',"REFRESH");
+
+	}
 
 	/**
 	 * upload file
@@ -117,7 +206,7 @@ class Wisata extends ADMIN_Controller {
 	 *  
 	 * @return array
 	 */
-    public function upload_image_wisata($array,$name,$id){
+    public function upload_image_wisata($array,$name){
  
           // Set preference
           $config['upload_path']        = getenv('IMG_PATH'); 
@@ -135,7 +224,7 @@ class Wisata extends ADMIN_Controller {
 
             // Initialize array
             $data= [
-                'kode_tempat_wisata'    => 'CBCSY'.str_pad($id ,3, "0", STR_PAD_LEFT),
+                'kode_tempat_wisata'    => $array['kode'],
                 'nama_tempat'           => $array['title'],
                 'alamat_tempat'         => $array['address'],
                 'img_tempat'			=> $filename,
@@ -179,9 +268,7 @@ class Wisata extends ADMIN_Controller {
 		if ( $this->form_validation->run() == TRUE ) {
 			$type 	 = "success";
 			$message = "Tempat Wisata Berhasil ditambahkan";
-			$id 	 = $this->db->get('tempat_wisata', 1)->row_array();
-			$id 	 = @$id['kode_tempat_wisata'] ?  (int) filter_var($id['kode_tempat_wisata'], FILTER_SANITIZE_NUMBER_INT) + 1 : 1;
-			$insert  = $this->upload_image_wisata($this->input->post(),'file',$id);
+			$insert  = $this->upload_image_wisata($this->input->post(),'file');
 			$this->db->insert('tempat_wisata', $insert);
 		}else{
 			$type    =  'danger';
@@ -192,7 +279,7 @@ class Wisata extends ADMIN_Controller {
 			'type' => $type,
 		];
 		alert($array);
-  // 		redirect('admin/wisata','refresh');
+   		redirect('admin/wisata','refresh');
 
 	}
 
