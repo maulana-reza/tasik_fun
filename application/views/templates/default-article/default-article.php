@@ -21,7 +21,7 @@
     <script src="<?= base_url();?>assets/templates/puskeswan-admin/tool/jquery-3.4.1.min.js" ></script>
 
     <title>
-    <?php @$this->load->view('templates/puskeswan-admin/title');?>
+    <?php @$this->load->view('templates/default-article/title');?>
     </title>
 </head>
      <?php
@@ -50,7 +50,7 @@ foreach ($modals as $key => $modal) {
             </div>
 
             <ul class="list-unstyled components">
-                <?php $menus = get_all_menu(); ?>
+                <?php $menus = menu_client(); ?>
                 <?php foreach ($menus as $key => $item): ?>    
                 <li class="<?= @$menu[$item['name']]?>">
                     <a class="menu " href="<?= $item['url'] ?>" data-name="<?= $item['name'] ?>" ><?= ucfirst($item['name']);?></a>
@@ -73,28 +73,37 @@ foreach ($modals as $key => $modal) {
                         <span></span>
                         <span></span>
                     </button>
-                    <a class="delete" href="<?= site_url('auth/logout')?>" >
-                    <button class="navbar-btn mr-3 " style="font-size: 20px;"><i class="fa fa-power-off fa-lg"></i></button></a>
-
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent" >
-                        <ul class="nav navbar-nav ml-auto">
+                        <ul class="nav navbar-nav ml-auto ">
                             <?php foreach ($menus as $key => $item): ?>    
                                 <li class="nav-item ml-3 mt-2 mb-2 <?= @$menu[$item['name']]?>">
-                                    <a class="nav-link menu" href="<?= $item['url'] ?>" data-name="<?= $item['name'] ?>"><?= ucfirst($item['name']);?></a>
+                                    <a class="nav-link menu " href="<?= $item['url'] ?>" data-name="<?= $item['name'] ?>"><?= ucfirst($item['name']);?></a>
                                 </li>
                             <?php endforeach ?>
                         </ul>
                     </div>
                 </div>
             </nav>
+			<?php
+			$uri_string = uri_string();
 
-            <a href="<?= site_url('auth/logout')?>" >
-            <button class="navbar-btn mr-3 float-right text-white"  style="font-size: 20px;"><i class="fa fa-power-off fa-lg"></i></button></a>
-
-            <?php @$this->load->view('templates/puskeswan-admin/page-title');?>
+			switch (true) {
+        case $uri_string=="auth/login":
+            echo "Login";
+            break;
+        default :
+            $text = str_ireplace("_", " ", $uri_string);
+            $text = str_ireplace("/", " >> ", $text);
+            echo ucwords($text);
+            break;
+    }
+    ?>
+			<div class="pull-right float-right">
+				<?= anchor('auth','sign-in');?>
+			</div>
+			<hr>
             <div class="col-md-12 heading-content-sub-title">
-             <?= @$title_card ? "Data ".$title_card: ""; ?>
             </div>
 
     <?php if (!is_null(show_alert())): ?>
@@ -102,7 +111,7 @@ foreach ($modals as $key => $modal) {
     <?php endif ?>
 			<?= @$content ?>
 
-    <footer class="text-center content w-100 mt-5 pt-5">
+    <footer class="text-center content w-100 mt-5 pt-5" style="margin-top:14em !important;">
         <p>Design by <a href="mailto:7392maulana@gmail.com" class="text-cyan "></a></p>
     </footer>
         </div>

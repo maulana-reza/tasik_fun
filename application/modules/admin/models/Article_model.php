@@ -7,8 +7,6 @@
  	 */
  	private $select = [
  		'article.*',
- 		'article_image.name as image_name',
- 		'article_image.id_article_image as image_id',
  	];
  	/**
  	 * Default get all article
@@ -18,8 +16,6 @@
  	{
  		
  		$this->db->select($this->select);
- 		$this->db->join('article_image', 'article_image.kode_article = article.kode_article','left');
- 		$this->db->group_by('article.kode_article');
  		$this->db->order_by('article.kode_article', 'asc');
  		$data = $this->db->get('article')->result_array();
  		return $data;

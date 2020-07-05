@@ -7,14 +7,19 @@
 		<?= form_input($title);?>
 	</div>
 
-	<div class="card p-3 mb-3">
-		<label for="image">Tambah Gambar</label>
-		<input type="file" id="file_input" name="image[]" multiple="" class="w-100">
-	</div>
+<div class="card p-3 mb-3">
+	<label for="image">Gambar</label>
+	<input type="file" name="photo" multiple="" class="w-100">
+</div>
 	<div class="card p-3 mb-3">
 		<label for="">Deskripsi</label>
 		<?= form_textarea($description);?>
 	</div>
+
+<div class="card p-3 mb-3">
+	<label for="image">Gallery</label>
+	<input type="file" id="file_input" name="image[]" multiple="" class="w-100">
+</div>
 	<div class="text-right">
 		<button type="submit" name="submit" class="btn btn-primary ml-0 mr-0 mt-3" style="bottom:0; right:0; border-radius: 5px !important;" value="submit">Tambah</button>
 	</div>

@@ -273,92 +273,6 @@ class MY_Controller extends CI_Controller
         $this->addMultipleData($menu_active);
     }
     /**
-     * for upload image with car_id
-     * 
-     * @param string file
-     * @param string index
-     * @param string name
-     * @return array : car_id,name
-     */
-    public function upload_files($files,$index_,$name,$document_id = false){
- 
-      $data = array();
-      // Looping all files 
-      if (@!$index_) {
-        return false;
-      }
-      foreach ($index_ as $i => $value) {
-        $index = $i - 1;
-        if (count($index_) == 1) {
-         $index = 0;
-        }        
-        if(!empty(@$files[$name]['name'][$index])){
- 
-          // Define new $_FILES array - $_FILES['file']
-          $_FILES['file']['name']       = $files[$name]['name'][$index];
-          $_FILES['file']['type']       = $files[$name]['type'][$index];
-          $_FILES['file']['tmp_name']   = $files[$name]['tmp_name'][$index];
-          $_FILES['file']['error']      = $files[$name]['error'][$index];
-          $_FILES['file']['size']       = $files[$name]['size'][$index];
-
-          // Set preference
-          $config['upload_path']        = getenv('IMG_PATH'); 
-          $config['allowed_types']      = 'jpg|jpeg|png';
-          $config['max_size']           = '2000';
-          $config['encrypt_name']       = TRUE; // max_size in kb
-          //Load upload library
-          $this->load->library('upload',$config); 
- 
-          // File upload
-          if($this->upload->do_upload('file')){
-            // Get data about the file
-            $uploadData = $this->upload->data();
-            $filename = $uploadData['file_name'];
-
-            // Initialize array
-            $data[] = [
-                'kode_article'          => @$document_id,
-                'name'                  => $filename,
-            ];
-            
-          }else{
-
-            $array[] = [
-                'text' => $this->upload->display_errors(),
-                'type' => 'danger' 
-            ];
-            alert($array);
-            redirect(uri_string(),"REFRESH");
-          }
-        }
-      }
-      return $data; 
-  }
-    /**
-     * Get user id
-     * 
-     * @param no param
-     * @return string user_id 
-     */
-    public function get_id()
-    {
-        return @$this->session->userdata('user_id');
-    }
-    /**
-     * Get and set setting
-     * 
-     * @param no param
-     * @return no return 
-     */
-    public function setting()
-    {
-        $data = $this->db->get('settings')->row_array();
-        if (@$_SESSION['language']) {
-            unset($data['language']);
-        }
-        $this->session->set_userdata( $data );
-    }
-    /**
      * Get all device token admin
      * 
      * @param no param 
@@ -376,40 +290,10 @@ class MY_Controller extends CI_Controller
         return $data;
 
     }
-    
-    /**
-     * set selected category
-     * 
-     * @param string selected_id
-     * @return no return
-     */
-    public function set_selected_category($id_category = false)
-    {
-        if ($id_category) {
-            $data['selected_category']  = $id_category; 
-            $this->session->set_userdata( $data );
-        }
-    }
-    /**
-     * get selected category
-     * 
-     * @param no param
-     * @return mixed id_category
-     */
-    public function get_selected_category()
-    {
-        $id_category = $this->session->userdata('selected_category');
-        return $id_category ? $id_category : FALSE; 
-    }
     public function get_about()
     {
-
         $data = $this->db->get('about')->row_array();
         $this->session->set_userdata( $data );
-        $social['sosial_media'] = $this->db->get('social')->result_array();
-        
-        $this->session->set_userdata( $social );
-
     }
 
 }

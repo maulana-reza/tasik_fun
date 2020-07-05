@@ -17,9 +17,8 @@ function get_all_menu()
 			'url'	=> site_url('admin/wisata'),
 			'name' 	=>'Tempat Wisata',
 		],
-
 		[
-			'url'	=> site_url('admin/wisata'),
+			'url'	=> site_url('admin/about'),
 			'name' 	=>'Tentang kami',
 		],
 		[
@@ -38,16 +37,26 @@ function menu_client()
 		],
 
 		[
-			'url'	=> site_url('dokumentasi'),
-			'name' 	=>'KEGIATAN',
+			'url'	=> site_url('article'),
+			'name' 	=>'Cari Artikel',
 		],
 		[
 			'url'	=> site_url('about'),
-			'name' 	=>'TENTANG KAMI',
+			'name' 	=>'About Us',
+		],
+		[
+			'url'	=> site_url('profile'),
+			'name' 	=>'Profile Admin',
 		],
 	];
 	return $menu;
 
 
+}
+function get_admin(){
+	$data = [];
+	$ci = get_instance();
+	$data = $ci->db->get('admin')->result_array();
+	return $data;
 }
 ?>

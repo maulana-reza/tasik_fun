@@ -1,24 +1,16 @@
-  
 
-    <section class="section bg-light element-animate w-100" style="overflow: hidden;">
 
-      <div class="clearfix mb-5 pb-5">
+    <section class="section element-animate w-100" style="overflow: hidden;">
+
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12 text-center heading-wrap">
-              <h2>Kegiatan terbaru kami</h2>
-              <span class="back-text-dark">DOKUMENTASI</span>
+              <h2>SELAMAT DATANG DI TASIKFUN</h2>
+              <span class="back-text-dark">Temukan Informasi Tempat Wisata Di Tasikmalaya disini</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="container">
-        
-        <div class="row no-gutters">
-          <?= $documentation ?>
-        </div>
-      </div>
     </section> <!-- .section -->
 
-   

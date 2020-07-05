@@ -7,35 +7,31 @@ class Article extends MY_Controller {
 	{
 		parent::__construct();
 		//Do your magic here
-		$this->load->model('admin/documentation_model');
+		$this->load->model('admin/article_model');
 
 	}
 	public function index($row = 0)
 	{
 		
 		$this->addData('remove_banner',true);
-		$this->addData('page_title','Kegiatan Kami');
+//		$this->addData('page_title','Kegiatan Kami');
 		$this->prepare_data($row);
-		$this->render('/dokumentasi/dokumentasi','eatery');	
+		$this->render('article/search','default-article');
 	}
 	public function prepare_data($row)
 	{
-
-		// $this->db->join('banner', 'banner.documentation_id = documentation.id_documentation');
-		// $data 						= $this->documentation_model->get();
-		// $data['banner'] 				= $this->builder_banner($data);
-		
-		// dokumentasi
-		if (($category = $this->input->get('category'))) {
-			$this->db->where('documentation.category_id', $category);
+		if(($search = $this->input->get('search'))){
+			$search = explode(" ",$search);
+			foreach ($search as $item) {
+				$this->db->or_like('title',$item);
+			}
 		}
 		$this->db->limit($this->per_page,$row);
-		$dokumentasi 			= $this->documentation_model->get();
-		$data['documentation'] 	= $this->builder_list($dokumentasi);
-		// if ($this->get_selected_category()) {
-		// 	$this->db->where('documentation.category_id', $this->get_selected_category());
-		// }
-		$dokumentasi_row		= count($this->documentation_model->get());
+		$this->db->order_by('article.date_create','desc');
+		$article 			= $this->article_model->get();
+		$data['article'] 	= $this->builder_list($article);
+
+		$dokumentasi_row		= count($this->article_model->get());
 		$this->pagination($dokumentasi_row);
 		$this->addMultipleData($data);
 		
@@ -74,101 +70,68 @@ class Article extends MY_Controller {
 		$this->pagination->initialize($config);
 	}
 
-	private function builder_banner($banner)
-	{
-		foreach ($banner as $key => $value) {
-			$img 	= base_url(getenv('IMG_PATH')).'/'.$value['image_name']; 
-			$title 	= $value['title'];
-			$url 	= site_url('dokumentasi/view/').$value['id_documentation'];
-			$text 	= strlen($value['description']) > 100 ? substr($value['description'], 0,100).'...' : $value['description'];
-
-			$result[] = '
-			      <div class="slider-item" style="'.$img.'">
-			        <div class="container">
-			          <div class="row slider-text align-items-center justify-content-center">
-			            <div class="col-md-8 text-center col-sm-12 element-animate">
-			              <h1>'.ucfirst($title).'</h1>
-			              <p class="mb-5">'.$text.'</p>
-			              <p><a href="'.$url.'" class="btn btn-white btn-outline-white">LIHAT SEKARANG</a></p>
-			            </div>
-			          </div>
-			        </div>
-			      </div>';
-
-
-		}
-		return @$result ? implode("", $result) : false;
-	}
 	private function builder_list($documentation)
 	{
 		foreach ($documentation as $key => $value) {
-			$img 	= base_url(getenv('IMG_PATH')).'/'.$value['image_name']; 
+			$img 	= $this->config->item('img_path').'/'.$value['image'];
 			$title 	= $value['title'];
-			$url 	= site_url('dokumentasi/view/').$value['id_documentation'];
 			$text 	= strlen($value['description']) > 100 ? substr($value['description'], 0,100).'...' : $value['description'];
 
 			$result[] = '
-			      <div class="col-md-6 mb-4">
-            <div class="blog d-block d-lg-flex">
-              <div class="bg-image" style="background-image: url('.$img.');"></div>
-              <div class="text">
-                <h3>'.$title.'</h3>
-                <p class="sched-time">
-                  <span><span class="fa fa-calendar"></span> '. convert_date($value['date_create'],"d / F / Y , H : i").'</span> <br>
-                </p>
-                <p>'.$text.'</p>
-                
-                <p><a href="'.$url.'" class="btn btn-primary btn-sm">Read More</a></p>
-              </div>
-            </div>
-          </div>';
+  <div class="card">
+    <img class="card-img-top" src="'.$img.'" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">'.$title.'</h5>
+      <p class="card-text">'.$text.'</p>
+      <p class="card-text"><small class="text-muted">'. convert_date($value['date_create'],"d / F / Y , H : i").'</small></p>
+      <div class="text-right">
+     <a href="'.site_url('article/view/'.$value['kode_article']).'" class="btn btn-primary">Read More</a>
+</div>
+    </div>
+  </div>
+  ';
 
 
 		}
-		return @$result ? implode("", $result) : false;
+		return @$result ? ' <div class="card-deck">'.implode("", $result).'</div>' : false;
 	}
-	public function view($documentation_id = 0)
+	public function view($kode = 0)
 	{
-		$this->db->where('documentation.id_documentation', $documentation_id);
-		$documentation = $this->documentation_model->get()[0];
-		if (@!$documentation) {
+		$this->db->where('article.kode_article', $kode);
+		$article = $this->article_model->get()[0];
+		if (@!$article) {
 			redirect('not_found','refresh');
 
 		}
-		$this->prepare_view($documentation_id);
-		$this->addData('page_title',$documentation['title']);
-		$this->addData('page_sub_title',convert_date($documentation['date_create'],'d / F / Y -  H : i'));
-		$this->addMultipleData($documentation);
-		$this->render('view','eatery');
+		$this->prepare_view($kode);
+		$this->addData('page_title',$article['title']);
+		$this->addData('page_sub_title',convert_date($article['date_create'],'d / F / Y -  H : i'));
+		$this->addMultipleData($article);
+		$this->render('view','default-article');
 
 	}
-	public function prepare_view($documentation_id = 0)
+	public function prepare_view($kode = 0)
 	{
-		$documentation = $this->documentation_model->get_documentation_image_by_documentation_id($documentation_id);
-		$data['documentation'] = $this->builder_image($documentation);
+		$this->db->where('kode_article',$kode);
+		$data = $this->db->get('article')->row_array();
+
+		$this->db->where('kode_article',$kode);
+		$image = $this->db->get('article_image')->result_array();
+		$data['gallery'] =  $this->builder_image($image);
 		$this->addMultipleData($data);
 	}
 	public function builder_image($image)
 	{
 		foreach ($image as $key => $value) {
-			$title 		= $key < 1 ? $value['title'] : "";
-			$sub_title 	= $key < 1 ? convert_date($value['date_create'],'d / F / Y - H : i') : "";
-			$img 		= base_url(getenv('IMG_PATH')).'/'.$value['image_name'];
+			$img 		= base_url(getenv('IMG_PATH')).'/'.$value['img'];
 			$result[] 	= '
-					      <div class="slider-item" style="background-image: url('.$img.');">
-					        <div class="container">
-					          <div class="row slider-text align-items-center justify-content-center">
-					            <div class="col-md-8 text-center col-sm-12 element-animate">
-					              <h1>'.$title.'</h1>
-					              <p>'.$sub_title.'</p>
-					            </div>
-					          </div>
-					        </div>
-					      </div>';
+			<div class="mb-3 pics animation all 2">
+    <img class="img-fluid" src="'.$img.'" alt="Card image cap">
+  </div>';
 		}
 		$data = '
-					    <section class="home-slider-loop-false inner-page owl-carousel">
-					    %s </section>
+<div class="gallery" id="gallery">
+					    %s </div>
 		';
 		return @$result ? sprintf($data,implode("", $result)) : false;
 	}

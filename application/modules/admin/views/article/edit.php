@@ -1,31 +1,35 @@
 <link rel="stylesheet" href="<?= base_url();?>node_modules/jquery.filer/css/jquery.filer.css">
 <link rel="stylesheet" href="<?= base_url();?>node_modules/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css">
 <label for="">Kategori</label>
-	
-	<div class="row flex-row overflow-auto category mb-3">
-		<a href="<?= site_url('admin/dokumentasi/category?back='.uri_string())?>">
-		
-		<div class="item waves-effect rounded shadow ml-3 card-text border p-2 pl-3 pr-3 mr-2 pb-0 bg-white "  style="border-radius:100px !important;"><i class="fa fa-plus"></i></div>
-	</a>
-		<?= @$category; ?>
-	</div>
+
 <?= form_open_multipart(); ?>
 
-	<div class="card p-3 mb-3">
+<div class="card p-3 mb-3">
 		<label for="">Judul</label>
 		<?= form_input($title);?>
 	</div>
+<div class="card p-3 mb-3">
+	<label for="">Gambar (Replace)</label>
+	<input type="file" name="photo" >
+</div>
+<div class="card p-3 mb-3">
+	<label for="image">Gambar</label>
+	<div class="card-columns">
+		<div class="card delete-image p-3 waves-effect text-center shadow ml-0 mb-0 position-relative overflow-hidden" style="height: 15em;">
+			<img src="<?= $this->config->item('img_path').'/'.$photo; ?>" alt="gambar-dokumentasi" class="position-absolute h-100" style="left:0; right:0;top:0;bottom:0;">
+		</div>
+	</div>
+</div>
 	<div class="card p-3 mb-3">
 		<label for="">Deskripsi</label>
 		<?= form_textarea($description);?>
 	</div>
 	<div class="card p-3 mb-3">
-		<label for="image">Tambah Gambar</label>
+		<label for="image">Galery</label>
 		<input type="file" id="file_input" name="image[]" multiple="" class="w-100">
 	</div>
-
 	<div class="card p-3 ">
-		<label for="image">Gambar</label>
+		<label for="image">Galery</label>
 		<div class="card-columns">
 		<?= @$images ?>
 		</div>
@@ -116,7 +120,7 @@
 								<div class="jFiler-item-assets jFiler-row">\
 									<ul class="list-inline pull-right">\
 									<li class="p-0">\
-											<input type="text" name="desc[{{fi-id}}]" value="" class="form-control w-75 m-0 d-inline" placeholder="Keterangan">\
+											<input type="hidden" name="desc[{{fi-id}}]" value="" class="form-control w-75 m-0 d-inline" placeholder="Keterangan">\
 											<div class="d-inline w-25 m-0 text-center">\
 												<a class="bg-transparent"><i class="icon-jfi-trash jFiler-item-trash-action"></i></a>\
 											</div>\

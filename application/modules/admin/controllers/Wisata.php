@@ -75,6 +75,9 @@ class Wisata extends ADMIN_Controller {
 	}
 	public function edit($kode_wisata = 0){
 		$this->submit_edit();
+		$this->addData('page_title',"Tambah Tempat Wisata");
+		$this->addData('btn_back','admin/wisata/');
+
 		$this->db->where('kode_tempat_wisata',$kode_wisata);
 		$data = $this->db->get('tempat_wisata')->result_array();
 		if(@!$data[0]){
@@ -178,21 +181,21 @@ class Wisata extends ADMIN_Controller {
 		}
 		if(@empty($_FILES['file']['name'])){
 			$data = [
-				'nama_tempat' 	=> $this->input->post('name'),
+				'nama_tempat' 	=> $this->input->post('title'),
             	'alamat_tempat' => $this->input->post('address'),
 			];
 		}else{
 			$data = $this->upload_image_wisata($this->input->post(),'file');
 		}
-
-		$this->db->where('kode_tempat_wisata',$this->input->post('kode_tempat_wisata'));
+		var_dump($data);
+		$this->db->where('kode_tempat_wisata',$this->input->post('kode'));
 		$this->db->update('tempat_wisata',$data);
 		$array[] = [
 			'text' => 'Tempat Wisata berhasil diubah',
 			'type' => 'success'
 		];
 		alert($array);
-//		redirect('',"REFRESH");
+		redirect('admin/wisata',"REFRESH");
 
 	}
 
@@ -281,6 +284,28 @@ class Wisata extends ADMIN_Controller {
 		alert($array);
    		redirect('admin/wisata','refresh');
 
+	}
+	function delete($kode = 0){
+		$this->db->where('kode_tempat_wisata',$kode);
+		$data = $this->db->get('tempat_wisata')->num_rows();
+		if($data < 1){
+			$array[] = [
+				'text' => 'Kode Tempat Wisata Tidak ditemukan',
+				'type' => 'danger',
+			];
+			
+			alert($array);
+			redirect('admin/wisata','refresh');
+		}
+		$this->db->delete('tempat_wisata',['kode_tempat_wisata'=> $kode]);
+
+		$array[] = [
+			'text' => 'Tempat Wisata berhasil dihapus',
+			'type' => 'success',
+		];
+
+		alert($array);
+		redirect('admin/wisata','refresh');
 	}
 
 }
